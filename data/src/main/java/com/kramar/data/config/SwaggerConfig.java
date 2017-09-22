@@ -16,7 +16,6 @@ import java.util.List;
 
 @EnableSwagger2
 @Configuration
-@Order(1)
 public class SwaggerConfig {
 
 //    http://localhost:8080/swagger-ui.html
