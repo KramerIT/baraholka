@@ -1,6 +1,6 @@
-package com.kramar.data.test.config;
+package com.kramar.data.config;
 
-import com.kramar.data.test.service.SpringSecurityAuditorAware;
+import com.kramar.data.service.SpringSecurityAuditorAware;
 import com.kramar.data.util.AutowireHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;

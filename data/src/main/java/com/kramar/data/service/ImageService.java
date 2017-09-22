@@ -1,4 +1,4 @@
-package com.kramar.data.test.service;
+package com.kramar.data.service;
 
 import com.kramar.data.dbo.ImageDbo;
 import com.kramar.data.type.ImageType;

@@ -1,10 +1,10 @@
-package com.kramar.data.test.service.impl;
+package com.kramar.data.service.impl;
 
 import com.kramar.data.dbo.UserDbo;
 import com.kramar.data.dto.CustomGrantedAuthorities;
 import com.kramar.data.dto.CustomUserDetails;
-import com.kramar.data.test.repository.UserRepository;
-import com.kramar.data.test.service.AuthenticationService;
+import com.kramar.data.service.AuthenticationService;
+import com.kramar.data.repository.UserRepository;
 import com.kramar.data.type.UserRole;
 import com.kramar.data.type.UserStatus;
 import org.springframework.beans.factory.annotation.Autowired;

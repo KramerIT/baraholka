@@ -1,4 +1,4 @@
-package com.kramar.data.test.repository;
+package com.kramar.data.repository;
 
 import com.kramar.data.dbo.AdvertDbo;
 import com.kramar.data.dbo.UserDbo;

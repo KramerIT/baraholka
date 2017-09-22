@@ -1,10 +1,10 @@
-package com.kramar.data.test.service.impl;
+package com.kramar.data.service.impl;
 
 import com.kramar.data.dbo.ImageDbo;
 import com.kramar.data.exception.BadRequestException;
 import com.kramar.data.exception.ErrorReason;
-import com.kramar.data.test.repository.ImageRepository;
-import com.kramar.data.test.service.ImageService;
+import com.kramar.data.repository.ImageRepository;
+import com.kramar.data.service.ImageService;
 import com.kramar.data.type.ImageType;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;

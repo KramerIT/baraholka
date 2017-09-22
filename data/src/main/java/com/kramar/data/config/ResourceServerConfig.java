@@ -1,4 +1,4 @@
-package com.kramar.data.test.config;
+package com.kramar.data.config;
 
 import com.kramar.data.type.UserRole;
 import com.kramar.data.web.AdvertController;

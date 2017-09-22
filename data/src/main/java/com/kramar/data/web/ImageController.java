@@ -1,7 +1,7 @@
 package com.kramar.data.web;
 
 import com.kramar.data.dbo.ImageDbo;
-import com.kramar.data.test.service.ImageService;
+import com.kramar.data.service.ImageService;
 import com.kramar.data.type.ImageType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;

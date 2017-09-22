@@ -1,9 +1,9 @@
 package com.kramar.data.web;
 
-import com.kramar.data.test.service.AuthenticationService;
+import com.kramar.data.service.AuthenticationService;
 import com.kramar.data.dto.ChangePasswordDto;
 import com.kramar.data.dto.UserDto;
-import com.kramar.data.test.service.UserService;
+import com.kramar.data.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;

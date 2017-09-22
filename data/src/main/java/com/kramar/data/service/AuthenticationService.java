@@ -1,4 +1,4 @@
-package com.kramar.data.test.service;
+package com.kramar.data.service;
 
 import com.kramar.data.dbo.UserDbo;
 

@@ -1,12 +1,12 @@
-package com.kramar.data.test.service.impl;
+package com.kramar.data.service.impl;
 
 import com.kramar.data.converter.AdvertConverter;
 import com.kramar.data.dbo.AdvertDbo;
 import com.kramar.data.dbo.UserDbo;
-import com.kramar.data.test.service.AuthenticationService;
+import com.kramar.data.repository.AdvertRepository;
+import com.kramar.data.service.AdvertService;
+import com.kramar.data.service.AuthenticationService;
 import com.kramar.data.dto.AdvertDto;
-import com.kramar.data.test.repository.AdvertRepository;
-import com.kramar.data.test.service.AdvertService;
 import com.kramar.data.type.AdvertStatus;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;

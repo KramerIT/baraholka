@@ -1,4 +1,4 @@
-package com.kramar.data.test.service.impl;
+package com.kramar.data.service.impl;
 
 import com.kramar.data.converter.UserConverter;
 import com.kramar.data.dbo.UserDbo;
@@ -6,8 +6,8 @@ import com.kramar.data.dto.ChangePasswordDto;
 import com.kramar.data.dto.UserDto;
 import com.kramar.data.exception.ConflictException;
 import com.kramar.data.exception.ErrorReason;
-import com.kramar.data.test.repository.UserRepository;
-import com.kramar.data.test.service.UserService;
+import com.kramar.data.service.UserService;
+import com.kramar.data.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;

@@ -2,9 +2,9 @@ package com.kramar.data.converter;
 
 import com.kramar.data.dbo.AdvertDbo;
 import com.kramar.data.dbo.ImageDbo;
-import com.kramar.data.test.service.AuthenticationService;
+import com.kramar.data.service.AuthenticationService;
 import com.kramar.data.dto.AdvertDto;
-import com.kramar.data.test.service.ImageService;
+import com.kramar.data.service.ImageService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.util.CollectionUtils;

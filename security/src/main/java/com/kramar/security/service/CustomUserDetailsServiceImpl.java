@@ -3,7 +3,7 @@ package com.kramar.security.service;
 import com.kramar.data.dbo.UserDbo;
 import com.kramar.data.dto.CustomGrantedAuthorities;
 import com.kramar.data.dto.CustomUserDetails;
-import com.kramar.data.test.repository.UserRepository;
+import com.kramar.data.repository.UserRepository;
 import com.kramar.data.type.UserRole;
 import com.kramar.data.type.UserStatus;
 import org.springframework.beans.factory.annotation.Autowired;

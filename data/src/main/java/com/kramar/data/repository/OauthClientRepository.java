@@ -1,4 +1,4 @@
-package com.kramar.data.test.repository;
+package com.kramar.data.repository;
 
 import com.kramar.data.dbo.OAuthClient;
 import org.springframework.data.jpa.repository.JpaRepository;

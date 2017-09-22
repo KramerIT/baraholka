@@ -1,7 +1,7 @@
 package com.kramar.security.config;
 
 
-import com.kramar.data.test.config.CommonConfig;
+import com.kramar.data.config.CommonConfig;
 import com.kramar.security.service.CustomClientDetailsService;
 import com.kramar.security.service.CustomUserDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;

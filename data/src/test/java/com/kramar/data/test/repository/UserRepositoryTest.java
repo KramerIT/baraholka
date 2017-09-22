@@ -1,6 +1,7 @@
 package com.kramar.data.test.repository;
 
 import com.kramar.data.dbo.UserDbo;
+import com.kramar.data.repository.UserRepository;
 import com.kramar.data.type.UserStatus;
 import org.junit.After;
 import org.junit.Before;

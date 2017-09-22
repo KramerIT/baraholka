@@ -1,7 +1,7 @@
 package com.kramar.data.web;
 
 import com.kramar.data.dto.AdvertDto;
-import com.kramar.data.test.service.AdvertService;
+import com.kramar.data.service.AdvertService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;

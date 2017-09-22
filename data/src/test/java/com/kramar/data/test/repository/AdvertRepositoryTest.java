@@ -2,6 +2,8 @@ package com.kramar.data.test.repository;
 
 import com.kramar.data.dbo.AdvertDbo;
 import com.kramar.data.dbo.UserDbo;
+import com.kramar.data.repository.AdvertRepository;
+import com.kramar.data.repository.UserRepository;
 import com.kramar.data.type.AdvertStatus;
 import com.kramar.data.type.AdvertType;
 import com.kramar.data.type.CurrencyType;

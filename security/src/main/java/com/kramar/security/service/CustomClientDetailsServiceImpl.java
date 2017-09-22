@@ -1,7 +1,7 @@
 package com.kramar.security.service;
 
 import com.kramar.data.dbo.OAuthClient;
-import com.kramar.data.test.repository.OauthClientRepository;
+import com.kramar.data.repository.OauthClientRepository;
 import com.kramar.security.audit.CustomOAuthClientDetails;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.oauth2.provider.ClientDetails;

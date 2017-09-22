@@ -1,7 +1,7 @@
-package com.kramar.data.test.service;
+package com.kramar.data.service;
 
 import com.kramar.data.dbo.AdvertDbo;
-import com.kramar.data.test.repository.AdvertRepository;
+import com.kramar.data.repository.AdvertRepository;
 import com.kramar.data.type.AdvertStatus;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;

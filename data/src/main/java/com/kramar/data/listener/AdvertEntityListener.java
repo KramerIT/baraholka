@@ -4,7 +4,7 @@ import com.kramar.data.dbo.AbstractAuditableEntity;
 import com.kramar.data.dbo.AdvertDbo;
 import com.kramar.data.dbo.AdvertHistoryDbo;
 import com.kramar.data.dbo.ImageDbo;
-import com.kramar.data.test.repository.AdvertHistoryRepository;
+import com.kramar.data.repository.AdvertHistoryRepository;
 import com.kramar.data.type.AdvertHistoryStatus;
 import com.kramar.data.type.ImageType;
 import com.kramar.data.util.AutowireHelper;
