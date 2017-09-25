@@ -15,6 +15,7 @@ import com.kramar.data.service.UserService;
 import com.kramar.data.service.impl.AdvertServiceImpl;
 import com.kramar.data.service.impl.ImageServiceImpl;
 import com.kramar.data.service.impl.UserServiceImpl;
+import com.kramar.data.test.utils.TestUtils;
 import com.kramar.data.type.AdvertStatus;
 import com.kramar.data.type.AdvertType;
 import com.kramar.data.type.CurrencyType;
@@ -26,6 +27,7 @@ import org.mockito.ArgumentCaptor;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
@@ -73,9 +75,9 @@ public class AdvertServiceTest {
 
     @Before
     public void setUp() {
-        userDbo = createUser();
-        advertDbo = createAdvert();
-        advertDbos = Arrays.asList(advertDbo, createAdvert(), createAdvert(), createAdvert());
+        userDbo = TestUtils.createUser();
+        advertDbo = TestUtils.createAdvert(userDbo);
+        advertDbos = Arrays.asList(advertDbo, TestUtils.createAdvert(userDbo), TestUtils.createAdvert(userDbo), TestUtils.createAdvert(userDbo));
         advertDtos = advertDbos.stream().map(advertConverter::transform).collect(Collectors.toList());
 
 
@@ -99,7 +101,7 @@ public class AdvertServiceTest {
     }
 
     // TODO: 20/09/17 not work! ((
-//    @Test
+    @Test
     public void getAllAdvertsByUserTest() {
         ArgumentCaptor<Pageable> pageArgument = ArgumentCaptor.forClass(Pageable.class);
         Page<AdvertDto> allAdverts = advertService.getAllAdvertsByUser(pageArgument.capture());
@@ -107,30 +109,7 @@ public class AdvertServiceTest {
         assertTrue(advertDtos.size() == allAdverts.getContent().size());
     }
 
-    private AdvertDbo createAdvert() {
-        final AdvertDbo advertDbo = new AdvertDbo();
-        advertDbo.setId(ID);
-        advertDbo.setAdvertStatus(AdvertStatus.ACTIVE);
-        advertDbo.setAdvertType(AdvertType.SALE);
-        advertDbo.setHeadLine(STRING);
-        advertDbo.setPrice(99.99);
-        advertDbo.setCurrencyType(CurrencyType.USD);
-        advertDbo.setDescription(DESCRIPTION);
-        advertDbo.setOwner(userDbo);
-        return advertDbo;
-    }
-
-    private UserDbo createUser() {
-        final UserDbo userDbo = new UserDbo();
-        userDbo.setId(ID);
-        userDbo.setEmail(STRING);
-        userDbo.setUserName(STRING);
-        userDbo.setUserSurname(STRING);
-        userDbo.setStatus(UserStatus.ACTIVE);
-        return userDbo;
-    }
-
-    //    @Configuration
+        @Configuration
     static class AdvertServiceTestContextConfiguration {
         @Bean
         public AuthenticationService authenticationService() {

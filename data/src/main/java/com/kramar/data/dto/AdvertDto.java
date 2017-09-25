@@ -12,6 +12,7 @@ import org.hibernate.validator.constraints.NotBlank;
 
 import javax.validation.constraints.Digits;
 import javax.validation.constraints.NotNull;
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
@@ -34,7 +35,7 @@ public class AdvertDto extends AbstractDto {
     private String headLine;
 
     @Digits(integer = 10, fraction = 2)
-    private Double price;
+    private BigDecimal price;
 
     @NotNull
     private CurrencyType currencyType;

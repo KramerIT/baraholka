@@ -10,6 +10,7 @@ import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.math.BigDecimal;
 import java.util.List;
 
 @Entity
@@ -33,7 +34,7 @@ public class AdvertDbo extends AbstractAuditableEntity {
     private String headLine;
 
     @Column(name = "price")
-    private Double price;
+    private BigDecimal price;
 
     @Column(name = "currency_type")
     @Enumerated(EnumType.STRING)

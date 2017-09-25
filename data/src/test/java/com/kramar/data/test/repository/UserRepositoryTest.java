@@ -2,6 +2,7 @@ package com.kramar.data.test.repository;
 
 import com.kramar.data.dbo.UserDbo;
 import com.kramar.data.repository.UserRepository;
+import com.kramar.data.test.utils.TestUtils;
 import com.kramar.data.type.UserStatus;
 import org.junit.After;
 import org.junit.Before;
@@ -24,18 +25,13 @@ public class UserRepositoryTest {
     @Autowired
     private UserRepository userRepository;
 
-    private static final String STRING = "String";
     private static final UUID INVALID_ID = UUID.fromString("00000000-0000-0000-0000-000000000001");
     private UUID USER_ID;
     private UserDbo userDbo;
 
     @Before
     public void setUp() {
-        userDbo = new UserDbo();
-        userDbo.setEmail(STRING);
-        userDbo.setUserName(STRING);
-        userDbo.setUserSurname(STRING);
-        userDbo.setStatus(UserStatus.ACTIVE);
+        userDbo = TestUtils.createUser();;
         userDbo = userRepository.save(userDbo);
         USER_ID = userDbo.getId();
     }
@@ -53,7 +49,6 @@ public class UserRepositoryTest {
 
         byId = userRepository.findById(INVALID_ID);
         assertFalse(byId.isPresent());
-
     }
 
     @Test

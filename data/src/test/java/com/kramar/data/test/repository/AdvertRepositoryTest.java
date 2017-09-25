@@ -4,6 +4,7 @@ import com.kramar.data.dbo.AdvertDbo;
 import com.kramar.data.dbo.UserDbo;
 import com.kramar.data.repository.AdvertRepository;
 import com.kramar.data.repository.UserRepository;
+import com.kramar.data.test.utils.TestUtils;
 import com.kramar.data.type.AdvertStatus;
 import com.kramar.data.type.AdvertType;
 import com.kramar.data.type.CurrencyType;
@@ -42,21 +43,9 @@ public class AdvertRepositoryTest {
 
     @Before
     public void setUp() {
-        userDbo = new UserDbo();
-        userDbo.setEmail(STRING);
-        userDbo.setUserName(STRING);
-        userDbo.setUserSurname(STRING);
-        userDbo.setStatus(UserStatus.ACTIVE);
+        userDbo = TestUtils.createUser();
         userDbo = userRepository.save(userDbo);
-
-        advertDbo = new AdvertDbo();
-        advertDbo.setAdvertStatus(AdvertStatus.ACTIVE);
-        advertDbo.setAdvertType(AdvertType.SALE);
-        advertDbo.setHeadLine(STRING);
-        advertDbo.setPrice(99.99);
-        advertDbo.setCurrencyType(CurrencyType.USD);
-        advertDbo.setDescription(DESCRIPTION);
-        advertDbo.setOwner(userDbo);
+        advertDbo = TestUtils.createAdvert(userDbo);
         advertDbo = advertRepository.save(advertDbo);
         ADVERT_ID = advertDbo.getId();
     }
