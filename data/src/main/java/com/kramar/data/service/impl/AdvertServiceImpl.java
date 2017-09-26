@@ -15,6 +15,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 @Service
 public class AdvertServiceImpl implements AdvertService {
@@ -34,7 +35,7 @@ public class AdvertServiceImpl implements AdvertService {
     @Override
     public List<AdvertDto> getAllAdvertsByStatus(AdvertStatus advertStatus) {
         List<AdvertDbo> byAdvertStatus = advertRepository.findByAdvertStatus(advertStatus);
-        return (List<AdvertDto>) advertConverter.transform(byAdvertStatus);
+        return byAdvertStatus.stream().map(advertConverter::transform).collect(Collectors.toList());
     }
 
     @Override

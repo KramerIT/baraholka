@@ -1,7 +1,6 @@
 package com.kramar.data.test.service;
 
 import com.kramar.data.converter.AdvertConverter;
-import com.kramar.data.converter.UserConverter;
 import com.kramar.data.dbo.AdvertDbo;
 import com.kramar.data.dbo.UserDbo;
 import com.kramar.data.dto.AdvertDto;
@@ -10,63 +9,48 @@ import com.kramar.data.repository.ImageRepository;
 import com.kramar.data.repository.UserRepository;
 import com.kramar.data.service.AdvertService;
 import com.kramar.data.service.AuthenticationService;
-import com.kramar.data.service.ImageService;
-import com.kramar.data.service.UserService;
-import com.kramar.data.service.impl.AdvertServiceImpl;
-import com.kramar.data.service.impl.ImageServiceImpl;
-import com.kramar.data.service.impl.UserServiceImpl;
 import com.kramar.data.test.utils.TestUtils;
-import com.kramar.data.type.AdvertStatus;
-import com.kramar.data.type.AdvertType;
-import com.kramar.data.type.CurrencyType;
-import com.kramar.data.type.UserStatus;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.ArgumentCaptor;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageImpl;
-import org.springframework.data.domain.Pageable;
-import org.springframework.test.context.ContextConfiguration;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.data.domain.*;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import org.springframework.test.context.support.AnnotationConfigContextLoader;
 
-import javax.persistence.EntityManagerFactory;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.Matchers.any;
-import static org.mockito.Mockito.mock;
-
+@SpringBootTest
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(loader = AnnotationConfigContextLoader.class, classes = AdvertServiceTest.AdvertServiceTestContextConfiguration.class)
 public class AdvertServiceTest {
 
     @Autowired
-    private AdvertConverter advertConverter;
-    @Autowired
-    private AdvertRepository advertRepository;
-    @Autowired
     private AdvertService advertService;
     @Autowired
+    private AdvertConverter advertConverter;
+    @MockBean
+    private AdvertRepository advertRepository;
+    @MockBean
     private ImageRepository imageRepository;
-    @Autowired
+    @MockBean
     private UserRepository userRepository;
-    @Autowired
+    @MockBean
     private AuthenticationService authenticationService;
 
     private AdvertDbo advertDbo;
     private UserDbo userDbo;
     private List<AdvertDbo> advertDbos;
     private List<AdvertDto> advertDtos;
+    private Pageable pageRequest;
 
     private static final String STRING = "String";
     private static final String DESCRIPTION = "Description";
@@ -75,11 +59,12 @@ public class AdvertServiceTest {
 
     @Before
     public void setUp() {
+        final Sort sort = new Sort(Sort.Direction.ASC, "name");
+        pageRequest = new PageRequest(1, 1, sort);
         userDbo = TestUtils.createUser();
         advertDbo = TestUtils.createAdvert(userDbo);
         advertDbos = Arrays.asList(advertDbo, TestUtils.createAdvert(userDbo), TestUtils.createAdvert(userDbo), TestUtils.createAdvert(userDbo));
         advertDtos = advertDbos.stream().map(advertConverter::transform).collect(Collectors.toList());
-
 
 //getCurrentUser
         Mockito.when(userRepository.getById(any(UUID.class))).thenReturn(userDbo);
@@ -89,77 +74,42 @@ public class AdvertServiceTest {
         Mockito.when(advertRepository.findAll(any(Pageable.class))).thenReturn(new PageImpl(advertDbos));
 
 //getAllAdvertsByOwner
-        Mockito.when(advertRepository.findByOwner(any(), any())).thenReturn(new PageImpl(advertDbos));
+        Mockito.when(advertRepository.findByOwner(any(), any(Pageable.class))).thenReturn(new PageImpl(advertDbos));
+
+//getAllAdvertsByStatus
+        Mockito.when(advertRepository.findByAdvertStatus(advertDbo.getAdvertStatus())).thenReturn(advertDbos);
+
+//getlAdvertById
+        Mockito.when(advertRepository.findById(advertDbo.getId())).thenReturn(Optional.of(advertDbo));
+        Mockito.when(advertRepository.getById(advertDbo.getId())).thenReturn(advertDbo);
     }
 
     @Test
     public void getAllAdvertsTest() {
-        ArgumentCaptor<Pageable> pageArgument = ArgumentCaptor.forClass(Pageable.class);
-        Page<AdvertDto> allAdverts = advertService.getAllAdverts(pageArgument.capture());
+        Page<AdvertDto> allAdverts = advertService.getAllAdverts(pageRequest);
         assertNotNull(allAdverts);
         assertTrue(advertDtos.size() == allAdverts.getContent().size());
     }
 
-    // TODO: 20/09/17 not work! ((
     @Test
     public void getAllAdvertsByUserTest() {
-        ArgumentCaptor<Pageable> pageArgument = ArgumentCaptor.forClass(Pageable.class);
-        Page<AdvertDto> allAdverts = advertService.getAllAdvertsByUser(pageArgument.capture());
-        assertNotNull(allAdverts);
-        assertTrue(advertDtos.size() == allAdverts.getContent().size());
+        Page<AdvertDto> allAdvertsByUser = advertService.getAllAdvertsByUser(pageRequest);
+        assertNotNull(allAdvertsByUser);
+        assertTrue(advertDtos.size() == allAdvertsByUser.getContent().size());
     }
 
-        @Configuration
-    static class AdvertServiceTestContextConfiguration {
-        @Bean
-        public AuthenticationService authenticationService() {
-            return mock(AuthenticationService.class);
-        }
-
-        @Bean
-        public ImageService imageService() {
-            return new ImageServiceImpl();
-        }
-
-        @Bean
-        public AdvertConverter advertConverter() {
-            return new AdvertConverter();
-        }
-
-        @Bean
-        public AdvertService advertService() {
-            return new AdvertServiceImpl();
-        }
-
-        @Bean
-        public UserService userService() {
-            return new UserServiceImpl();
-        }
-
-        @Bean
-        public UserConverter userConverter() {
-            return new UserConverter();
-        }
-
-        @Bean
-        public AdvertRepository advertRepository() {
-            return mock(AdvertRepository.class);
-        }
-
-        @Bean
-        public ImageRepository imageRepository() {
-            return mock(ImageRepository.class);
-        }
-
-        @Bean
-        public UserRepository userRepository() {
-            return mock(UserRepository.class);
-        }
-
-        @Bean
-        public EntityManagerFactory entityManagerFactory() {
-            return mock(EntityManagerFactory.class);
-        }
-
+    @Test
+    public void getAllAdvertsByStatus() {
+        List<AdvertDto> allAdvertsByStatus = advertService.getAllAdvertsByStatus(advertDbo.getAdvertStatus());
+        assertNotNull(allAdvertsByStatus);
+        assertTrue(advertDtos.size() == allAdvertsByStatus.size());
     }
+
+    @Test
+    public void getAdvertById() {
+        AdvertDto advertById = advertService.getAdvertById(advertDbo.getId());
+        assertNotNull(advertById);
+        assertTrue(advertDbo.getId().equals(advertById.getId()));
+    }
+
 }

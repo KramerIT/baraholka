@@ -27,27 +27,6 @@ public abstract class AbstractDtoConverter<Entity extends AbstractEntity, Dto ex
         return entity;
     }
 
-//    public Collection<Dto> transform(Collection<Entity> entities) {
-//        if (CollectionUtils.isEmpty(entities)) return Collections.emptyList();
-//        return entities.stream().map(this::transform).collect(Collectors.toList());
-//    }
-//
-//    public Collection<Entity> transform(Collection<Dto> dtos) {
-//        if (CollectionUtils.isEmpty(dtos)) return Collections.emptyList();
-//        return dtos.stream().map(this::transform).collect(Collectors.toList());
-//    }
-
-    public Collection<?> transform(Collection<?> collection) {
-        if (CollectionUtils.isEmpty(collection)) return Collections.emptyList();
-        if (collection.iterator().next().getClass().isInstance(AbstractDto.class)) {
-            return ((Collection<Dto>)collection).stream().map(this::transform).collect(Collectors.toList());
-        } else if (collection.iterator().next().getClass().isInstance(AbstractEntity.class)) {
-            return ((Collection<Entity>)collection).stream().map(this::transform).collect(Collectors.toList());
-        } else {
-            return Collections.emptyList();
-        }
-    }
-
     private void doDtoToEntityTransform(Dto dto, Entity entity) {
         if (dto == null) return;
         updateEntitySystemFields(dto, entity);
