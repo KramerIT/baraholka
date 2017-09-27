@@ -27,6 +27,18 @@ public class SwaggerConfig {
                 .select()
                 .apis(RequestHandlerSelectors.basePackage("com.kramar.data.web"))
                 .paths(PathSelectors.any())
-                .build();
+                .build()
+                .apiInfo(apiInfo());
+    }
+
+    private ApiInfo apiInfo() {
+        return new ApiInfo(
+                "Baraholka REST API",
+                "Some custom description of Baraholka API.",
+                "API TOS",
+                "Terms of service",
+                new Contact("Yri Kramar", "KramerIT.com", "y.kramar@gpsolutions.com"),
+                "License of Baraholka API",
+                "Baraholka API license URL");
     }
 }
