@@ -21,23 +21,13 @@ import java.util.UUID;
 @ComponentScan(basePackages = "com.kramar")
 public class CommonConfig {
 
-    @Qualifier("dataSource")
-    @Autowired
-    private DataSource dataSource;
-
     @Autowired
     private SpringSecurityAuditorAware springSecurityAuditorAware;
 
     @Bean
-    @Primary
     public AuditorAware<UUID> auditorAware() {
         return springSecurityAuditorAware;
     }
-
-//    @Bean
-//    public ShaPasswordEncoder shaPasswordEncoder() {
-//        return new ShaPasswordEncoder(512);
-//    }
 
     @Bean
     public PasswordEncoder passwordEncoder() {

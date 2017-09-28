@@ -22,6 +22,7 @@ public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
     @Override
     public void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
+                .antMatchers("/swagger-ui.html").permitAll()
                 .antMatchers(AdvertController.REQUEST_MAPPING + "/**").hasAnyAuthority(UserRole.VALIDATED_USER.name(), UserRole.ADMIN.name(), UserRole.SUPER_ADMIN.name())
                 .anyRequest().permitAll();
     }

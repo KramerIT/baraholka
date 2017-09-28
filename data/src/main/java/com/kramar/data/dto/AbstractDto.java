@@ -1,6 +1,7 @@
 package com.kramar.data.dto;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
 import java.io.Serializable;
@@ -11,5 +12,7 @@ import static com.fasterxml.jackson.annotation.JsonInclude.Include.NON_NULL;
 @Data
 @JsonInclude(NON_NULL)
 public class AbstractDto implements Serializable {
+
+    @ApiModelProperty(value = "Advert id (UUID)")
     protected UUID id;
 }
