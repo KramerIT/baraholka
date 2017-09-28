@@ -1,13 +1,13 @@
 server:
   context-path: /
-  port: 8080
+  port: 8088
   error:
     whitelabel:
       enabled: false
 
 spring:
   application:
-    name: SAT Support Web Application
+    name: Baraholka Application
   messages:
     basename: messages/messages
     encoding: UTF-8
