@@ -39,6 +39,7 @@ public class SwaggerConfig {
                 "Terms of service",
                 new Contact("Yri Kramar", "KramerIT.com", "y.kramar@gpsolutions.com"),
                 "License of Baraholka API",
-                "Baraholka API license URL");
+                "Baraholka API license URL",
+                Collections.singleton(new StringVendorExtension("kramar", "1")));
     }
 }

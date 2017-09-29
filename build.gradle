@@ -1,0 +1,68 @@
+
+allprojects {
+
+//    apply plugin: 'java'
+//    apply plugin: 'idea'
+//    apply plugin: 'spring-boot'
+//    group = 'com.kramar'
+    version = '0.0.1'
+}
+
+
+
+buildscript {
+
+
+    ext {
+        springBootVersion = '1.5.7.RELEASE'
+    }
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+    }
+}
+
+
+subprojects {
+
+    apply plugin: "org.springframework.boot"
+    apply plugin: 'idea'
+    apply plugin: 'java'
+//    apply plugin: 'spring-boot'
+    apply plugin: 'application'
+
+    sourceCompatibility = 1.8
+    targetCompatibility = 1.8
+    tasks.withType(JavaCompile) {
+        options.encoding = 'UTF-8'
+    }
+
+    repositories {
+        mavenLocal()
+        mavenCentral()
+    }
+
+    dependencies {
+//        compile project(':data')
+        compile group: 'io.springfox', name: 'springfox-swagger2', version: '2.7.0'
+        compile group: 'io.springfox', name: 'springfox-swagger-ui', version: '2.7.0'
+        compile group: 'org.apache.commons', name: 'commons-lang3', version: '3.0'
+
+        compile('org.springframework.boot:spring-boot-starter')
+        compile('org.springframework.boot:spring-boot-starter-data-jpa')
+        compile('org.springframework.boot:spring-boot-starter-security')
+        compile('org.springframework.security.oauth:spring-security-oauth2')
+        compile('org.springframework.boot:spring-boot-starter-web')
+        compile('org.projectlombok:lombok')
+        compile('org.apache.commons:commons-lang3')
+        compile('io.springfox:springfox-swagger2')
+        compile('io.springfox:springfox-swagger-ui')
+        runtime group: 'org.postgresql', name: 'postgresql', version: "9.4.1211"
+        testCompile('org.springframework.boot:spring-boot-starter-test')
+        testCompile('org.springframework.security:spring-security-test')
+    }
+
+
+}

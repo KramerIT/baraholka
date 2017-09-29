@@ -1,0 +1,32 @@
+group = 'com.kramar.security'
+description = 'security'
+dependencies {
+  compile project(':data')
+}
+
+
+mainClassName = 'com.kramar.security.SecurityApplication'
+
+jar {
+  manifest {
+    attributes(
+            'Class-Path': configurations.compile.collect { it.getName() }.join(' '),
+            'Main-Class': 'com.kramar.security.SecurityApplication'
+    )
+  }
+
+}
+
+project(':data') {
+    bootRepackage {
+        enabled = false
+    }
+}
+
+//springBoot {
+//    bootRepackage {
+//        mainClass = "com.kramar.security.SecurityApplication"
+//    }
+////    mainClass = "com.kramar.security.SecurityApplication"
+//}
+
