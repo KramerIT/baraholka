@@ -19,21 +19,21 @@ public class HttpErrorAdvice {
     @ExceptionHandler(ForbiddenException.class)
     @ResponseBody
     @ResponseStatus(value = HttpStatus.FORBIDDEN)
-    WebExceptionInfo handleForbiddenException(ForbiddenException e) {
+    WebExceptionInfo handleForbiddenException(final ForbiddenException e) {
         return handleException(e);
     }
 
     @ExceptionHandler(NotAuthorizedException.class)
     @ResponseBody
     @ResponseStatus(value = HttpStatus.UNAUTHORIZED)
-    WebExceptionInfo handleNotAuthorizedException(NotAuthorizedException e) {
+    WebExceptionInfo handleNotAuthorizedException(final NotAuthorizedException e) {
         return handleException(e);
     }
 
     @ExceptionHandler(ResourceNotFoundException.class)
     @ResponseBody
     @ResponseStatus(value = HttpStatus.NOT_FOUND)
-    WebExceptionInfo handleNotFoundException(ResourceNotFoundException e) {
+    WebExceptionInfo handleNotFoundException(final ResourceNotFoundException e) {
         return handleException(e);
     }
 

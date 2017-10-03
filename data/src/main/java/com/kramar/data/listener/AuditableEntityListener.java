@@ -11,12 +11,12 @@ import java.time.LocalDateTime;
 public class AuditableEntityListener {
 
     @PrePersist
-    public void setCreatedTime(AbstractAuditableEntity targetEntity) {
+    public void setCreatedTime(final AbstractAuditableEntity targetEntity) {
         targetEntity.setCreatedTime(LocalDateTime.now());
     }
 
     @PreUpdate
-    public void setUpdatedTime(AbstractAuditableEntity targetEntity) {
+    public void setUpdatedTime(final AbstractAuditableEntity targetEntity) {
         targetEntity.setUpdatedTime(LocalDateTime.now());
     }
 

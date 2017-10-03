@@ -38,13 +38,13 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserDto getUserById(final UUID id) {
-        UserDbo userDbo = userRepository.getById(id);
+        final UserDbo userDbo = userRepository.getById(id);
         return userConverter.transform(userDbo);
     }
 
     @Override
     public void deleteUserById(final UUID id) {
-        UserDbo userDbo = userRepository.getById(id);
+        final UserDbo userDbo = userRepository.getById(id);
         userRepository.delete(userDbo);
     }
 

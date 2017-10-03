@@ -45,7 +45,7 @@ public class AdvertDto extends AbstractDto {
     private BigDecimal price;
 
     @NotNull
-    @ApiModelProperty(value = "Advert price currency", allowableValues = "    BYN, RUB, EUR, USD")
+    @ApiModelProperty(value = "Advert price currency", allowableValues = "BYN, RUB, EUR, USD")
     private CurrencyType currencyType;
 
     @Length(max = 4000)

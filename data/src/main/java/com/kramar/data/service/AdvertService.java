@@ -12,7 +12,7 @@ public interface AdvertService {
 
     Page<AdvertDto> getAllAdverts(final Pageable pageable);
 
-    List<AdvertDto> getAllAdvertsByStatus(AdvertStatus advertStatus);
+    List<AdvertDto> getAllAdvertsByStatus(final AdvertStatus advertStatus);
 
     Page<AdvertDto> getAllAdvertsByUser(final Pageable pageable);
 

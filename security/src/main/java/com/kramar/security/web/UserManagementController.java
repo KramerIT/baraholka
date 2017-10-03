@@ -13,7 +13,7 @@ public class UserManagementController {
     public static final String REQUEST_MAPPING = "/oauth/user";
 
     @GetMapping
-    public Principal userInfo(@AuthenticationPrincipal Principal user) {
+    public Principal userInfo(@AuthenticationPrincipal final Principal user) {
         return user;
     }
 }

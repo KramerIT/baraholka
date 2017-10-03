@@ -1,6 +1,7 @@
 package com.kramar.security.audit;
 
 import com.kramar.data.dbo.OAuthClient;
+import org.apache.commons.lang3.Validate;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.security.oauth2.provider.ClientDetails;
@@ -14,8 +15,8 @@ public class CustomOAuthClientDetails implements ClientDetails {
     private OAuthClient oAuthClient;
     private final static Integer TOKEN_TTL = -1;
 
-    public CustomOAuthClientDetails(OAuthClient oAuthClient) {
-//        Validate.notNull(oAuthClient, "oAuthClient can't be null");
+    public CustomOAuthClientDetails(final OAuthClient oAuthClient) {
+        Validate.notNull(oAuthClient, "oAuthClient can't be null");
         this.oAuthClient = oAuthClient;
     }
 

@@ -13,7 +13,7 @@ public enum ErrorReason {
 
     private String description;
 
-    ErrorReason(String description) {
+    ErrorReason(final String description) {
         this.description = description;
     }
 

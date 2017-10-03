@@ -15,26 +15,26 @@ import java.util.UUID;
 
 public interface UserRepository extends JpaRepository<UserDbo, UUID> {
 
-    Optional<UserDbo> findByEmail(String email);
+    Optional<UserDbo> findByEmail(final String email);
 
-    default UserDbo getUserByEmail(String email) {
-        Optional<UserDbo> userByEmailOpt = findByEmail(email);
+    default UserDbo getUserByEmail(final String email) {
+        final Optional<UserDbo> userByEmailOpt = findByEmail(email);
         if (userByEmailOpt.isPresent()) {
-            UserDbo user = userByEmailOpt.get();
+            final UserDbo user = userByEmailOpt.get();
             if (UserStatus.ACTIVE.equals(user.getStatus())) {
                 return user;
             }
             throw new ForbiddenException(ErrorReason.BLOCKED_ACCOUNT);
         }
-        String msg = String.format(ErrorReason.USER_NOT_FOUND.getDescription(), "email", email);
+        final String msg = String.format(ErrorReason.USER_NOT_FOUND.getDescription(), "email", email);
         throw new UsernameNotFoundException(msg);
     }
 
-    Page<UserDbo> findAll(Pageable pageable);
+    Page<UserDbo> findAll(final Pageable pageable);
 
-    Optional<UserDbo> findById(UUID id);
+    Optional<UserDbo> findById(final UUID id);
 
-    default UserDbo getById(UUID id) {
+    default UserDbo getById(final UUID id) {
         return findById(id)
                 .orElseThrow(() ->
                         new ResourceNotFoundException(ErrorReason.RESOURCE_NOT_FOUND, "user"));

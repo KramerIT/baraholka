@@ -23,18 +23,16 @@ public class CustomUserDetailsServiceImpl implements CustomUserDetailsService {
     private UserRepository userRepository;
 
     @Override
-    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
-        UserDbo user = userRepository.getUserByEmail(email);
-        UserDetails userDetails = transform(user);
+    public UserDetails loadUserByUsername(final String email) throws UsernameNotFoundException {
+        final UserDbo user = userRepository.getUserByEmail(email);
+        final UserDetails userDetails = transform(user);
         return userDetails;
     }
 
-    //TODO: Transforms for Users
-
-    public CustomUserDetails transform(UserDbo user) {
+    public CustomUserDetails transform(final UserDbo user) {
         if (user == null) return null;
 
-        CustomUserDetails userDetails = new CustomUserDetails();
+        final CustomUserDetails userDetails = new CustomUserDetails();
         userDetails.setUserId(user.getId());
         userDetails.setEmail(user.getEmail());
         userDetails.setPassword(user.getPassword());
@@ -44,36 +42,22 @@ public class CustomUserDetailsServiceImpl implements CustomUserDetailsService {
         return userDetails;
     }
 
-    public CustomUserDetails transform(LinkedHashMap<String, String> map) {
-        CustomUserDetails userDetails = new CustomUserDetails();
+    public CustomUserDetails transform(final LinkedHashMap<String, String> map) {
+        final CustomUserDetails userDetails = new CustomUserDetails();
         userDetails.setUserId(UUID.fromString(map.get("userId")));
         userDetails.setEmail(map.get("email"));
         userDetails.setUserStatus(UserStatus.valueOf(map.get("userStatus")));
         return userDetails;
     }
 
-    private List<CustomGrantedAuthorities> transformAuthorities(UserDbo user) {
+    private List<CustomGrantedAuthorities> transformAuthorities(final UserDbo user) {
         if (user == null) return Collections.EMPTY_LIST;
-//        Map<UserRole, UUID> userRoles = user.getUserRoles();
-        List<UserRole> userRoles = user.getUserRoles();
+
+        final List<UserRole> userRoles = user.getUserRoles();
+
         if (userRoles.isEmpty()) return Collections.EMPTY_LIST;
 
-//        boolean isSystemAdmin = userRoles.keySet().stream()
-//                .anyMatch(userRole -> userRole.equals(UserRole.SUPER_ADMIN));
-
-//        CustomGrantedAuthorities authorities;
-//        if (isSystemAdmin) {
-//            authorities = new SatGrantedAuthorities(UserRole.SYSTEM_ADMIN, TenantContext.getCurrentTenant());
-//        } else {
-//            log.info("Tenant Id = {}", TenantContext.getCurrentTenant());
-//            Optional<SatGrantedAuthorities> authoritiesOp = userRoles.entrySet().stream().filter(e -> e.getValue().equals(TenantContext.getCurrentTenant()))
-//                    .map(e -> new SatGrantedAuthorities(e.getKey(), e.getValue()))
-//                    .findFirst();
-//            if (authoritiesOp.isPresent()) authorities = authoritiesOp.get();
-//            else return Collections.EMPTY_LIST;
-//        }
-
-        List<CustomGrantedAuthorities> collect = userRoles.stream().map(CustomGrantedAuthorities::new).collect(Collectors.toList());
+        final List<CustomGrantedAuthorities> collect = userRoles.stream().map(CustomGrantedAuthorities::new).collect(Collectors.toList());
 
         return collect;
     }

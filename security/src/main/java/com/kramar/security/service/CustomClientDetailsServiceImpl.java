@@ -18,7 +18,7 @@ public class CustomClientDetailsServiceImpl implements CustomClientDetailsServic
 
     @Override
     public ClientDetails loadClientByClientId(String clientId) throws ClientRegistrationException {
-        OAuthClient oAuthClient = oauthClientRepository.getByClientId(clientId);
+        final OAuthClient oAuthClient = oauthClientRepository.getByClientId(clientId);
         return new CustomOAuthClientDetails(oAuthClient);
     }
 }

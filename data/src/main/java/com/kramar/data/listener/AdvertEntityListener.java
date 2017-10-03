@@ -34,7 +34,7 @@ public class AdvertEntityListener {
 // and you can register a TransactionSynchronization which allows you to automatically do a post-commit
 
     @PrePersist
-    public void postPersist(AbstractAuditableEntity targetEntity) {
+    public void postPersist(final AbstractAuditableEntity targetEntity) {
         if (targetEntity instanceof AdvertDbo) {
             init();
             TransactionSynchronizationManager.registerSynchronization(new TransactionSynchronizationAdapter() {
@@ -49,7 +49,7 @@ public class AdvertEntityListener {
     }
 
     @PreUpdate
-    public void postUpdate(AbstractAuditableEntity targetEntity) {
+    public void postUpdate(final AbstractAuditableEntity targetEntity) {
         if (targetEntity instanceof AdvertDbo) {
             init();
             TransactionSynchronizationManager.registerSynchronization(new TransactionSynchronizationAdapter() {
@@ -64,7 +64,7 @@ public class AdvertEntityListener {
     }
 
     @PreRemove
-    public void postRemove(AbstractAuditableEntity targetEntity) {
+    public void postRemove(final AbstractAuditableEntity targetEntity) {
         if (targetEntity instanceof AdvertDbo) {
             init();
             TransactionSynchronizationManager.registerSynchronization(new TransactionSynchronizationAdapter() {
@@ -78,8 +78,8 @@ public class AdvertEntityListener {
         }
     }
 
-    private AdvertHistoryDbo createAdvertHistoryEntity(AbstractAuditableEntity targetEntity) {
-        AdvertDbo advertDbo = (AdvertDbo) targetEntity;
+    private AdvertHistoryDbo createAdvertHistoryEntity(final AbstractAuditableEntity targetEntity) {
+        final AdvertDbo advertDbo = (AdvertDbo) targetEntity;
         AdvertHistoryDbo advertHistoryDbo = new AdvertHistoryDbo();
         advertHistoryDbo.setAdvertType(advertDbo.getAdvertType());
         advertHistoryDbo.setAdvertStatus(advertDbo.getAdvertStatus());

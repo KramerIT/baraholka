@@ -19,7 +19,7 @@ public class AdvertScheduler {
 
     @Scheduled(cron = "0 0 12 * * ?")
     public void setOldAdvertsInActive() {
-        List<AdvertDbo> advertDbos = advertRepository.findByAdvertStatus(AdvertStatus.ACTIVE);
+        final List<AdvertDbo> advertDbos = advertRepository.findByAdvertStatus(AdvertStatus.ACTIVE);
         advertDbos.forEach(a -> {
             if (a.getCreatedTime().isBefore(LocalDateTime.now().minusMonths(1L))) {
                 a.setAdvertStatus(AdvertStatus.INACTIVE);
@@ -29,8 +29,8 @@ public class AdvertScheduler {
 
     @Scheduled(cron = "0 0 12 * * ?")
     public void deleteInActiveAdverts() {
-        List<AdvertDbo> advertDbos = advertRepository.findByAdvertStatus(AdvertStatus.INACTIVE);
-        List<AdvertDbo> collect =
+        final List<AdvertDbo> advertDbos = advertRepository.findByAdvertStatus(AdvertStatus.INACTIVE);
+        final List<AdvertDbo> collect =
                 advertDbos
                         .stream()
                         .filter(a -> a.getCreatedTime().isBefore(LocalDateTime.now().minusMonths(2L)))

@@ -10,9 +10,9 @@ import java.util.UUID;
 @Repository
 public interface OauthClientRepository extends JpaRepository<OAuthClient, UUID> {
 
-    Optional<OAuthClient> findByClientId(String clientId);
+    Optional<OAuthClient> findByClientId(final String clientId);
 
-    default OAuthClient getByClientId(String clientId) {
+    default OAuthClient getByClientId(final String clientId) {
         return findByClientId(clientId)
                 .orElseThrow(() -> new RuntimeException("USER_NOT_FOUND"));
     }

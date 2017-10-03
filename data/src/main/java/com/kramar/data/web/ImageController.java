@@ -22,20 +22,20 @@ public class ImageController {
     private ImageService imageService;
 
     @GetMapping("/{id}")
-    public ResponseEntity<byte[]> getImageById(@PathVariable("id") UUID id) {
-        ImageDbo image = imageService.getImageById(id);
-        HttpHeaders httpHeaders = new HttpHeaders();
+    public ResponseEntity<byte[]> getImageById(@PathVariable("id") final UUID id) {
+        final ImageDbo image = imageService.getImageById(id);
+        final HttpHeaders httpHeaders = new HttpHeaders();
         httpHeaders.setContentType(MediaType.parseMediaType(image.getMimeType()));
         return new ResponseEntity<>(image.getContent(), httpHeaders, HttpStatus.OK);
     }
 
     @PostMapping
-    public ResponseEntity<UUID> saveImage(@RequestParam MultipartFile file, @RequestParam ImageType imageType) {
+    public ResponseEntity<UUID> saveImage(@RequestParam final MultipartFile file, @RequestParam final ImageType imageType) {
         return new ResponseEntity<>(imageService.saveImage(file, imageType), HttpStatus.CREATED);
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> delete(@PathVariable UUID id) {
+    public ResponseEntity<Void> delete(@PathVariable final UUID id) {
         imageService.deleteImageById(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }

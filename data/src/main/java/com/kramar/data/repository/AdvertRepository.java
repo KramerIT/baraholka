@@ -17,15 +17,15 @@ import java.util.UUID;
 @Repository
 public interface AdvertRepository extends JpaRepository<AdvertDbo, UUID> {
 
-    Page<AdvertDbo> findByOwner(UserDbo user, Pageable pageable);
+    Page<AdvertDbo> findByOwner(final UserDbo user, final Pageable pageable);
 
-    List<AdvertDbo> findByAdvertStatus(AdvertStatus advertStatus);
+    List<AdvertDbo> findByAdvertStatus(final AdvertStatus advertStatus);
 
-    Optional<AdvertDbo> findById(UUID id);
+    Optional<AdvertDbo> findById(final UUID id);
 
-    Optional<AdvertDbo> findByHeadLine(String headLine);
+    Optional<AdvertDbo> findByHeadLine(final String headLine);
 
-    default AdvertDbo getById(UUID id) {
+    default AdvertDbo getById(final UUID id) {
         return findById(id)
                 .orElseThrow(() ->
                         new ResourceNotFoundException(ErrorReason.RESOURCE_NOT_FOUND, "advert"));

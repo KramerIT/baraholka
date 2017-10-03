@@ -33,8 +33,8 @@ public class AdvertServiceImpl implements AdvertService {
     }
 
     @Override
-    public List<AdvertDto> getAllAdvertsByStatus(AdvertStatus advertStatus) {
-        List<AdvertDbo> byAdvertStatus = advertRepository.findByAdvertStatus(advertStatus);
+    public List<AdvertDto> getAllAdvertsByStatus(final AdvertStatus advertStatus) {
+        final List<AdvertDbo> byAdvertStatus = advertRepository.findByAdvertStatus(advertStatus);
         return byAdvertStatus.stream().map(advertConverter::transform).collect(Collectors.toList());
     }
 
@@ -53,19 +53,19 @@ public class AdvertServiceImpl implements AdvertService {
     }
 
     @Override
-    public AdvertDto getAdvertById(UUID id) {
+    public AdvertDto getAdvertById(final UUID id) {
         final AdvertDbo advertDbo = advertRepository.getById(id);
         return advertConverter.transform(advertDbo);
     }
 
     @Override
-    public void deleteAdvertById(UUID id) {
+    public void deleteAdvertById(final UUID id) {
         final AdvertDbo advertDbo = advertRepository.getById(id);
         advertRepository.delete(advertDbo);
     }
 
     @Override
-    public AdvertDto modifyAdvertById(UUID id, AdvertDto advertDto) {
+    public AdvertDto modifyAdvertById(final UUID id, final AdvertDto advertDto) {
         final AdvertDbo oldAdvert = advertRepository.getById(id);
         advertDto.setId(oldAdvert.getId());
         AdvertDbo advertDbo = advertConverter.transform(advertDto);

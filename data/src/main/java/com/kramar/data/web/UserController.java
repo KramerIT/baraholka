@@ -36,38 +36,38 @@ public class UserController {
 
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
-    public Page<UserDto> getAllUsers(Pageable pageable) {
+    public Page<UserDto> getAllUsers(final Pageable pageable) {
         return userService.getAllUser(pageable);
     }
 
     @GetMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
-    public UserDto getUserById(@PathVariable("id") UUID id) {
+    public UserDto getUserById(@PathVariable("id") final UUID id) {
         return userService.getUserById(id);
     }
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public UserDto createUser(@RequestBody @Validated UserDto userDto) {
+    public UserDto createUser(@RequestBody @Validated final UserDto userDto) {
         userDto.setPassword(passwordEncoder.encode(userDto.getPassword()));
         return userService.createUser(userDto);
     }
 
     @PutMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
-    public UserDto modifyUser(@PathVariable("id") UUID id, @RequestBody @Validated UserDto userDto) {
+    public UserDto modifyUser(@PathVariable("id") final UUID id, @RequestBody @Validated final UserDto userDto) {
         return userService.modifyUserById(id, userDto);
     }
 
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void deleteUserById(@PathVariable("id") UUID id) {
+    public void deleteUserById(@PathVariable("id") final UUID id) {
         userService.deleteUserById(id);
     }
 
     @PutMapping("/changepassword/{id}")
     @ResponseStatus(HttpStatus.OK)
-    public void changePassword(@PathVariable("id") UUID id, @RequestBody @Validated ChangePasswordDto passwordDto) {
+    public void changePassword(@PathVariable("id") final UUID id, @RequestBody @Validated final ChangePasswordDto passwordDto) {
         passwordDto.setOldPassword(passwordEncoder.encode(passwordDto.getOldPassword()));
         passwordDto.setNewPassword(passwordEncoder.encode(passwordDto.getNewPassword()));
         userService.changePassword(id, passwordDto);

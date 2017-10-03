@@ -17,8 +17,8 @@ public class ExceptionUtils extends org.apache.commons.lang3.exception.Exception
      * <p> root cause class name, if rootCause is present, but message is <code>null</code>,
      * <p> empty string, if rootCause none found or null throwable input
      */
-    public static String getRootCauseMessage(Throwable throwable) {
-        Throwable root = ExceptionUtils.getRootCause(throwable);
+    public static String getRootCauseMessage(final Throwable throwable) {
+        final Throwable root = ExceptionUtils.getRootCause(throwable);
         if (root == null) {
             return StringUtils.EMPTY;
         } else if (root instanceof ConstraintViolationException) {
@@ -33,7 +33,7 @@ public class ExceptionUtils extends org.apache.commons.lang3.exception.Exception
 
     }
 
-    public static String getMessage(Throwable th) {
+    public static String getMessage(final Throwable th) {
         if (th == null) {
             return StringUtils.EMPTY;
         }
@@ -46,8 +46,8 @@ public class ExceptionUtils extends org.apache.commons.lang3.exception.Exception
      * <p> only original cause message, if root cause message is empty,
      * <p> only root cause message, if original message is empty
      */
-    public static String getFullMessage(Throwable throwable) {
-        String message;
+    public static String getFullMessage(final Throwable throwable) {
+        final String message;
         if (throwable instanceof ConstraintViolationException) {
             message = parseConstraintViolationException((ConstraintViolationException) throwable);
         } else if (throwable instanceof NullPointerException) {
@@ -56,7 +56,7 @@ public class ExceptionUtils extends org.apache.commons.lang3.exception.Exception
             message = getMessage(throwable);
         }
 
-        String rootMessage = getRootCauseMessage(throwable);
+        final String rootMessage = getRootCauseMessage(throwable);
 
         if (StringUtils.isEmpty(rootMessage)) {
             return message;
@@ -70,8 +70,8 @@ public class ExceptionUtils extends org.apache.commons.lang3.exception.Exception
 
     }
 
-    public static String getLocalStackTrace(Throwable throwable) {
-        StringBuilder stackTraceAccumulator = new StringBuilder(throwable.toString());
+    public static String getLocalStackTrace(final Throwable throwable) {
+        final StringBuilder stackTraceAccumulator = new StringBuilder(throwable.toString());
         try {
             for (StackTraceElement traceElement : throwable.getStackTrace()) {
                 if (traceElement.getClassName().startsWith(PACKAGE_FILTER))
@@ -84,12 +84,12 @@ public class ExceptionUtils extends org.apache.commons.lang3.exception.Exception
         return stackTraceAccumulator.toString();
     }
 
-    private static void addCauseStackTrace(Throwable original, int depth, StringBuilder stackTraceAccumulator) {
+    private static void addCauseStackTrace(final Throwable original, int depth, final StringBuilder stackTraceAccumulator) {
         if (original == null || depth < 1) {
             return;
         }
 
-        Throwable ourCause = original.getCause();
+        final Throwable ourCause = original.getCause();
         if (ourCause != null && ourCause != original) {
             stackTraceAccumulator.append(CAUSE_CAPTION).append(ourCause);
             StackTraceElement[] stackTrace = ourCause.getStackTrace();
@@ -100,7 +100,7 @@ public class ExceptionUtils extends org.apache.commons.lang3.exception.Exception
         }
     }
 
-    private static String parseConstraintViolationException(ConstraintViolationException e) {
+    private static String parseConstraintViolationException(final ConstraintViolationException e) {
         return e.getConstraintViolations()
                 .stream()
                 .map((violation) -> violation.getMessage() + ", invalid value: " + violation.getInvalidValue() + ". ")

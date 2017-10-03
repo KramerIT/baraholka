@@ -30,12 +30,12 @@ public class AuthenticationServiceImpl implements AuthenticationService {
 
     @Override
     public UUID getCurrentUserId() {
-        CustomUserDetails userDetails = getUserDetails();
+        final CustomUserDetails userDetails = getUserDetails();
         return (userDetails == null) ? null : userDetails.getUserId();
     }
     @Override
     public UserDbo getCurrentUser() {
-        CustomUserDetails userDetails = getUserDetails();
+        final CustomUserDetails userDetails = getUserDetails();
         return (userDetails == null) ? null : userRepository.getById(userDetails.getUserId());
     }
 

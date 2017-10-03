@@ -3,6 +3,7 @@ package com.kramar.data.service.impl;
 import com.kramar.data.dbo.ImageDbo;
 import com.kramar.data.exception.BadRequestException;
 import com.kramar.data.exception.ErrorReason;
+import com.kramar.data.repository.AdvertRepository;
 import com.kramar.data.repository.ImageRepository;
 import com.kramar.data.service.ImageService;
 import com.kramar.data.type.ImageType;
@@ -18,6 +19,7 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 import static org.springframework.http.MediaType.IMAGE_JPEG_VALUE;
 import static org.springframework.http.MediaType.IMAGE_PNG_VALUE;
@@ -30,6 +32,8 @@ public class ImageServiceImpl implements ImageService{
 
     @Autowired
     private ImageRepository imageRepository;
+    @Autowired
+    private AdvertRepository advertRepository;
 
     private void validateFileType(final MultipartFile file) {
         if (file == null || StringUtils.isEmpty(file.getContentType()) ||
@@ -75,9 +79,8 @@ public class ImageServiceImpl implements ImageService{
     }
 
     public List<UUID> getAllImagesByAdvertId (final UUID id) {
-        return null;
-//        List<ImageDbo> byAdvert = imageRepository.findByAdvert(advertRepository.findOne(id));
-//        return byAdvert.stream().map(ImageDbo::getId).collect(Collectors.toList());
+        List<ImageDbo> byAdvert = advertRepository.findOne(id).getImages();
+        return byAdvert.stream().map(ImageDbo::getId).collect(Collectors.toList());
     }
 
 }
