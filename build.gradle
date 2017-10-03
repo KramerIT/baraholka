@@ -1,17 +1,16 @@
 
-allprojects {
+// have some problem to build all submoduls,
+// so first build "data" and copy jar somewhere,
+// then uncomment in security module some option and build "security"
 
-//    apply plugin: 'java'
-//    apply plugin: 'idea'
-//    apply plugin: 'spring-boot'
-//    group = 'com.kramar'
-    version = '0.0.1'
+
+allprojects {
+    task wrapper(type: Wrapper) {
+        gradleVersion = '4.2'
+    }
 }
 
-
-
 buildscript {
-
 
     ext {
         springBootVersion = '1.5.7.RELEASE'
@@ -21,48 +20,46 @@ buildscript {
     }
     dependencies {
         classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+        classpath("io.spring.gradle:dependency-management-plugin:1.0.3.RELEASE")
     }
 }
 
-
 subprojects {
 
-    apply plugin: "org.springframework.boot"
     apply plugin: 'idea'
     apply plugin: 'java'
-//    apply plugin: 'spring-boot'
     apply plugin: 'application'
-
-    sourceCompatibility = 1.8
-    targetCompatibility = 1.8
-    tasks.withType(JavaCompile) {
-        options.encoding = 'UTF-8'
-    }
+    apply plugin: 'org.springframework.boot'
+    apply plugin: 'io.spring.dependency-management'
 
     repositories {
-        mavenLocal()
         mavenCentral()
     }
 
-    dependencies {
-//        compile project(':data')
-        compile group: 'io.springfox', name: 'springfox-swagger2', version: '2.7.0'
-        compile group: 'io.springfox', name: 'springfox-swagger-ui', version: '2.7.0'
-        compile group: 'org.apache.commons', name: 'commons-lang3', version: '3.0'
+    version = '1.0'
 
-        compile('org.springframework.boot:spring-boot-starter')
-        compile('org.springframework.boot:spring-boot-starter-data-jpa')
-        compile('org.springframework.boot:spring-boot-starter-security')
-        compile('org.springframework.security.oauth:spring-security-oauth2')
-        compile('org.springframework.boot:spring-boot-starter-web')
-        compile('org.projectlombok:lombok')
-        compile('org.apache.commons:commons-lang3')
-        compile('io.springfox:springfox-swagger2')
-        compile('io.springfox:springfox-swagger-ui')
-        runtime group: 'org.postgresql', name: 'postgresql', version: "9.4.1211"
-        testCompile('org.springframework.boot:spring-boot-starter-test')
-        testCompile('org.springframework.security:spring-security-test')
+    jar {
+        manifest.attributes provider: 'gradle'
     }
 
+    dependencies {
+        compile group: 'org.springframework.boot', name: 'spring-boot-starter'
+        compile group: 'org.springframework.boot', name: 'spring-boot-starter-web'
+        compile group: 'org.springframework.boot', name: 'spring-boot-starter-data-jpa'
+        compile group: 'org.springframework.boot', name: 'spring-boot-starter-security'
+        compile group: 'org.springframework.security.oauth', name: 'spring-security-oauth2'
+
+        testCompile group: 'org.springframework.boot', name: 'spring-boot-starter-test'
+        testCompile group: 'org.springframework.security', name: 'spring-security-test'
+
+        // with other versions of hibernate not work :(
+        compile (group: 'org.hibernate', name: 'hibernate-entitymanager', version: '5.2.3.Final')
+        compile (group: 'org.hibernate', name: 'hibernate-core', version: '5.2.3.Final')
+        compile group: 'org.projectlombok', name: 'lombok', version:'1.16.10'
+        compile group: 'org.apache.commons', name: 'commons-lang3', version:'3.4'
+        compile group: 'io.springfox', name: 'springfox-swagger2', version:'2.7.0'
+        compile group: 'io.springfox', name: 'springfox-swagger-ui', version:'2.7.0'
+        compile group: 'org.postgresql', name: 'postgresql', version:'42.1.4'
+    }
 
 }

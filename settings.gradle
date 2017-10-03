@@ -1,6 +1,2 @@
 rootProject.name = 'baraholka'
-include ':data'
-include ':security'
-
-//project(':data').projectDir = "$rootDir/data" as File
-//project(':security').projectDir = "$rootDir/security" as File
+include 'security', 'data'
