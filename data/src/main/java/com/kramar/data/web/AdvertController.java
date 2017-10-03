@@ -30,7 +30,7 @@ public class AdvertController {
             response = AdvertDto.class,
             responseContainer = "List"
     )
-    public Page<AdvertDto> getAllAdvert(final Pageable pageable) {
+    public Page<AdvertDto> getAllAdverts(final Pageable pageable) {
         return advertService.getAllAdverts(pageable);
     }
 
@@ -51,21 +51,44 @@ public class AdvertController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
+    @ApiOperation(
+            value = "Save new advert",
+            notes = "Save new advert",
+            response = AdvertDto.class
+    )
+    @ApiResponses({
+            @ApiResponse(code = 201, message = "Save advert", response = AdvertDto.class),
+    })
     public AdvertDto createAdvert(@RequestBody @Validated final AdvertDto advertDto) {
         return advertService.createAdvert(advertDto);
     }
 
     @PutMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
+    @ApiOperation(
+            value = "Modify advert",
+            notes = "Modify advert",
+            response = AdvertDto.class
+    )
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "Modify advert", response = AdvertDto.class),
+    })
     public AdvertDto modifyAdvert(@PathVariable("id") final UUID id, @RequestBody @Validated final AdvertDto advertDto) {
         return advertService.modifyAdvertById(id, advertDto);
     }
 
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
+    @ApiOperation(
+            value = "Delete advert",
+            notes = "Delete advert",
+            response = AdvertDto.class
+    )
+    @ApiResponses({
+            @ApiResponse(code = 204, message = "Delete advert", response = AdvertDto.class),
+    })
     public void deleteAdvert(@PathVariable("id") final UUID id) {
         advertService.deleteAdvertById(id);
     }
-
 
 }
