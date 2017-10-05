@@ -9,7 +9,7 @@ import java.util.UUID;
 
 public interface UserService {
 
-    Page<UserDto> getAllUser(final Pageable pageable);
+    Page<UserDto> getAllUsers(final Pageable pageable);
 
     UserDto createUser(final UserDto userDto);
 

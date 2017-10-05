@@ -24,7 +24,7 @@ public class UserServiceImpl implements UserService {
     private UserConverter userConverter;
 
     @Override
-    public Page<UserDto> getAllUser(final Pageable pageable) {
+    public Page<UserDto> getAllUsers(final Pageable pageable) {
         return userRepository.findAll(pageable).map(userConverter::transform);
     }
 

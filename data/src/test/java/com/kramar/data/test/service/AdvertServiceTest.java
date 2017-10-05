@@ -5,7 +5,6 @@ import com.kramar.data.dbo.AdvertDbo;
 import com.kramar.data.dbo.UserDbo;
 import com.kramar.data.dto.AdvertDto;
 import com.kramar.data.repository.AdvertRepository;
-import com.kramar.data.repository.ImageRepository;
 import com.kramar.data.repository.UserRepository;
 import com.kramar.data.service.AdvertService;
 import com.kramar.data.service.AuthenticationService;
@@ -40,8 +39,6 @@ public class AdvertServiceTest {
     @MockBean
     private AdvertRepository advertRepository;
     @MockBean
-    private ImageRepository imageRepository;
-    @MockBean
     private UserRepository userRepository;
     @MockBean
     private AuthenticationService authenticationService;
@@ -51,11 +48,6 @@ public class AdvertServiceTest {
     private List<AdvertDbo> advertDbos;
     private List<AdvertDto> advertDtos;
     private Pageable pageRequest;
-
-    private static final String STRING = "String";
-    private static final String DESCRIPTION = "Description";
-    private static final UUID ID = UUID.fromString("00000000-0000-0000-0000-000000000000");
-    private static final UUID INVALID_ID = UUID.fromString("00000000-0000-0000-0000-000000000001");
 
     @Before
     public void setUp() {

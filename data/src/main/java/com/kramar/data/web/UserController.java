@@ -37,7 +37,7 @@ public class UserController {
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
     public Page<UserDto> getAllUsers(final Pageable pageable) {
-        return userService.getAllUser(pageable);
+        return userService.getAllUsers(pageable);
     }
 
     @GetMapping("/{id}")
