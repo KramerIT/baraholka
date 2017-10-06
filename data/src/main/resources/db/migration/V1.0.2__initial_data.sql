@@ -15,5 +15,6 @@ BEGIN
 
   INSERT INTO user2roles (user_id, role) VALUES (system_id, 'SUPER_ADMIN');
 
-END$$;
+  INSERT INTO adverts (id, advert_type, advert_status, headline, price, currency_type, description, user_id, created_time, created_by, updated_time, updated_by, version) VALUES ('c7559c52-39c4-4551-afeb-4a12802808a0', 'SALE', 'ACTIVE', 'First Advert2', 99, 'USD', 'first ad in app', '00000000-0000-0000-0000-000000000000', '2017-09-19 18:20:13.353000', null, '2017-09-19 18:21:14.358000', null, 1);
 
+END$$;

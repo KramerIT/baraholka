@@ -13,10 +13,14 @@ Technology:
 
 
 To start app:
- 1. package both module 
- 2. rut them by: $ java -jar app_name.jar
- 3. get token by $ curl -X POST -vu web:web http://localhost:8000/oauth/token  -H "Accept: application/json" -d "grant_type=password&username=admin@kramar.com&password=12345"
- 4. call REST with access_toke like:
+ 1. Install PostgreSQL
+ 2. Create database schema the same as in application.yml file
+ 3. Run sql with admin permission "CREATE EXTENSION pgcrypto" (need for using UUID)
+ 4. Run flyway maven plugin from data module to migrate DB data
+ 5. package both module using maven
+ 6. rut them by: $ java -jar app_name.jar
+ 7. get token by: $ curl -X POST -vu web:web http://localhost:8000/oauth/token  -H "Accept: application/json" -d "grant_type=password&username=admin@kramar.com&password=12345"
+ 8. call REST with access_toke like:
     
     http://localhost:8080/adverts
     
@@ -27,7 +31,7 @@ To start app:
     Cache-Control: no-cache
     Postman-Token: 362e61b8-2bbe-7de1-4d88-8a97a63e28e2
 
- 5. all rest method you can find on swagger:
+ 9. all rest method you can find on swagger:
     http://localhost:8080/swagger-ui.html
 
 
