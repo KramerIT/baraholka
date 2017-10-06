@@ -21,6 +21,9 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import java.util.Optional;
 import java.util.UUID;
 
+import static com.kramar.data.test.utils.TestUtils.INVALID_ID;
+import static com.kramar.data.test.utils.TestUtils.createAdvert;
+import static com.kramar.data.test.utils.TestUtils.createUser;
 import static junit.framework.Assert.assertFalse;
 import static junit.framework.Assert.assertTrue;
 
@@ -36,18 +39,12 @@ public class AdvertRepositoryTest {
     private AdvertDbo advertDbo;
     private UserDbo userDbo;
 
-    private static final String STRING = "String";
-    private static final String DESCRIPTION = "Description";
-    private static final UUID INVALID_ID = UUID.fromString("00000000-0000-0000-0000-000000000001");
-    private UUID ADVERT_ID;
-
     @Before
     public void setUp() {
-        userDbo = TestUtils.createUser();
+        userDbo = createUser();
         userDbo = userRepository.save(userDbo);
-        advertDbo = TestUtils.createAdvert(userDbo);
+        advertDbo = createAdvert(userDbo);
         advertDbo = advertRepository.save(advertDbo);
-        ADVERT_ID = advertDbo.getId();
     }
 
     @After
@@ -60,7 +57,7 @@ public class AdvertRepositoryTest {
     public void findByHeadLineTest() {
         Optional<AdvertDbo> byHeadLine = advertRepository.findByHeadLine(advertDbo.getHeadLine());
         assertTrue(byHeadLine.isPresent());
-        assertTrue(byHeadLine.get().getHeadLine().equals(STRING));
+        assertTrue(byHeadLine.get().getHeadLine().equals(advertDbo.getHeadLine()));
 
         byHeadLine = advertRepository.findByHeadLine("abra_cadabra");
         assertFalse(byHeadLine.isPresent());
@@ -68,9 +65,9 @@ public class AdvertRepositoryTest {
 
     @Test
     public void findByIdTest() {
-        Optional<AdvertDbo> byId = advertRepository.findById(ADVERT_ID);
+        Optional<AdvertDbo> byId = advertRepository.findById(advertDbo.getId());
         assertTrue(byId.isPresent());
-        assertTrue(byId.get().getHeadLine().equals(STRING));
+        assertTrue(byId.get().getHeadLine().equals(advertDbo.getHeadLine()));
 
         byId = advertRepository.findById(INVALID_ID);
         assertFalse(byId.isPresent());
@@ -80,7 +77,7 @@ public class AdvertRepositoryTest {
     public void findByOwnerTest() {
         Page<AdvertDbo> byOwner = advertRepository.findByOwner(userDbo, null);
         assertFalse(byOwner.getContent().isEmpty());
-        assertTrue(byOwner.getContent().get(0).getHeadLine().equals(STRING));
+        assertTrue(byOwner.getContent().get(0).getHeadLine().equals(advertDbo.getHeadLine()));
         UserDbo userDbo = new UserDbo();
         userDbo = userRepository.save(userDbo);
         byOwner = advertRepository.findByOwner(userDbo, null);

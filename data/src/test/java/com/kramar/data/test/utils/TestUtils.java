@@ -1,18 +1,19 @@
 package com.kramar.data.test.utils;
 
-import com.kramar.data.dbo.AdvertDbo;
-import com.kramar.data.dbo.ImageDbo;
-import com.kramar.data.dbo.UserDbo;
+import com.kramar.data.dbo.*;
+import com.kramar.data.listener.AdvertEntityListener;
 import com.kramar.data.type.*;
 
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.math.BigDecimal;
 import java.util.UUID;
 
 public class TestUtils {
 
-    private static final String STRING = "String";
-    private static final String DESCRIPTION = "Description";
-    private static final BigDecimal PRICE = BigDecimal.valueOf(99.99);
+    public static final String ANY_WORD = "String";
+    public static final String DESCRIPTION = "Description";
+    public static final BigDecimal PRICE = BigDecimal.valueOf(99.99);
     public static final UUID ID = UUID.fromString("00000000-0000-0000-0000-000000000000");
     public static final UUID INVALID_ID = UUID.fromString("00000000-0000-0000-0000-000000000001");
     public static final byte[] RANDOM_BYTE = new byte[]{0, 1, 0, 1};
@@ -22,7 +23,7 @@ public class TestUtils {
         advertDbo.setId(ID);
         advertDbo.setAdvertStatus(AdvertStatus.ACTIVE);
         advertDbo.setAdvertType(AdvertType.SALE);
-        advertDbo.setHeadLine(STRING);
+        advertDbo.setHeadLine(ANY_WORD);
         advertDbo.setPrice(PRICE);
         advertDbo.setCurrencyType(CurrencyType.USD);
         advertDbo.setDescription(DESCRIPTION);
@@ -39,10 +40,10 @@ public class TestUtils {
     public static UserDbo createUser() {
         final UserDbo userDbo = new UserDbo();
         userDbo.setId(ID);
-        userDbo.setEmail(STRING);
-        userDbo.setUserName(STRING);
-        userDbo.setUserSurname(STRING);
-        userDbo.setPassword(STRING);
+        userDbo.setEmail(ANY_WORD);
+        userDbo.setUserName(ANY_WORD);
+        userDbo.setUserSurname(ANY_WORD);
+        userDbo.setPassword(ANY_WORD);
         userDbo.setStatus(UserStatus.ACTIVE);
         return userDbo;
     }
@@ -54,5 +55,19 @@ public class TestUtils {
         imageDbo.setImageType(ImageType.COMMON);
         imageDbo.setContent(RANDOM_BYTE);
         return imageDbo;
+    }
+
+    public static AdvertHistoryDbo createAdvertHistory(AdvertDbo advertDbo) {
+        Class[] parameterTypes = new Class[]{AbstractAuditableEntity.class};
+        try {
+            Method method = AdvertEntityListener.class.getDeclaredMethod("createAdvertHistoryEntity", parameterTypes);
+            method.setAccessible(true);
+            AdvertHistoryDbo advertHistoryDbo = (AdvertHistoryDbo) method.invoke(AdvertEntityListener.class.newInstance(), advertDbo);
+            advertHistoryDbo.setAdvertHistoryStatus(AdvertHistoryStatus.ADDED);
+            return advertHistoryDbo;
+        } catch (NoSuchMethodException | IllegalAccessException | InvocationTargetException | InstantiationException e) {
+            e.printStackTrace();
+        }
+        return new AdvertHistoryDbo();
     }
 }

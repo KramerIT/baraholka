@@ -87,7 +87,7 @@ public class AdvertEntityListener {
         advertHistoryDbo.setPrice(advertDbo.getPrice());
         advertHistoryDbo.setCurrencyType(advertDbo.getCurrencyType());
         advertHistoryDbo.setDescription(advertDbo.getDescription());
-        advertHistoryDbo.setOwner(advertDbo.getOwner().getId());
+        advertHistoryDbo.setOwner(advertDbo.getOwner() != null ? advertDbo.getOwner().getId() : null);
         if (!CollectionUtils.isEmpty(advertDbo.getImages())) {
             advertHistoryDbo.setHeadLineImage(
                     advertDbo
