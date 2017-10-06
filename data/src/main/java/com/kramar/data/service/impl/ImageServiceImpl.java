@@ -57,7 +57,7 @@ public class ImageServiceImpl implements ImageService{
     }
 
     public ImageDbo getImageById(final UUID id) {
-        return imageRepository.findOne(id);
+        return imageRepository.getById(id);
     }
 
     public List<ImageDbo> getImageByIds(final Collection<UUID> ids) {

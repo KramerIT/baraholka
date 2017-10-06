@@ -15,6 +15,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import java.util.Optional;
 import java.util.UUID;
 
+import static com.kramar.data.test.utils.TestUtils.INVALID_ID;
 import static junit.framework.Assert.assertFalse;
 import static junit.framework.Assert.assertTrue;
 
@@ -25,15 +26,12 @@ public class UserRepositoryTest {
     @Autowired
     private UserRepository userRepository;
 
-    private static final UUID INVALID_ID = UUID.fromString("00000000-0000-0000-0000-000000000001");
-    private UUID USER_ID;
     private UserDbo userDbo;
 
     @Before
     public void setUp() {
-        userDbo = TestUtils.createUser();;
+        userDbo = TestUtils.createUser();
         userDbo = userRepository.save(userDbo);
-        USER_ID = userDbo.getId();
     }
 
     @After

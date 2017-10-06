@@ -14,6 +14,7 @@ public class TestUtils {
     private static final String DESCRIPTION = "Description";
     private static final BigDecimal PRICE = BigDecimal.valueOf(99.99);
     public static final UUID ID = UUID.fromString("00000000-0000-0000-0000-000000000000");
+    public static final UUID INVALID_ID = UUID.fromString("00000000-0000-0000-0000-000000000001");
     public static final byte[] RANDOM_BYTE = new byte[]{0, 1, 0, 1};
 
     public static AdvertDbo createAdvert() {

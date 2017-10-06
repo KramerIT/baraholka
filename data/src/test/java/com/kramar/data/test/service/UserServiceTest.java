@@ -6,19 +6,16 @@ import com.kramar.data.dto.ChangePasswordDto;
 import com.kramar.data.dto.UserDto;
 import com.kramar.data.exception.ConflictException;
 import com.kramar.data.repository.UserRepository;
-import com.kramar.data.service.AuthenticationService;
 import com.kramar.data.service.UserService;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.Mock;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.data.domain.*;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import javax.persistence.EntityManager;
 import java.util.Arrays;
 import java.util.List;
 import java.util.UUID;
@@ -41,10 +38,6 @@ public class UserServiceTest {
     private UserConverter userConverter;
     @MockBean
     private UserRepository userRepository;
-    @Mock
-    private EntityManager entityManager;
-    @MockBean
-    private AuthenticationService authenticationService;
 
     private UserDbo userDbo;
     private UserDto userDto;
@@ -66,10 +59,8 @@ public class UserServiceTest {
         when(userRepository.findAll(any(Pageable.class))).thenReturn(new PageImpl(userDbos));
         when(userRepository.save(any(UserDbo.class))).thenReturn(userDbo);
         doNothing().when(userRepository).delete(any(UUID.class));
-        when(authenticationService.getCurrentUser()).thenReturn(userDbo);
         when(userConverter.transform(any(UserDbo.class))).thenReturn(userDto);
         when(userConverter.transform(any(UserDto.class))).thenReturn(userDbo);
-        when(entityManager.find(any(), any(UUID.class))).thenReturn(userDbo);
     }
 
     @Test
