@@ -35,9 +35,9 @@ To start app:
     http://localhost:8080/swagger-ui.html
 
 
-
-
-
+App have profiling for data module. 
+You can enable it in application.yml file in property "profiling".
+To profiling class you need add annotation "@Profiling" to class like it done on AdvertServiceImpl.class
 
 
 

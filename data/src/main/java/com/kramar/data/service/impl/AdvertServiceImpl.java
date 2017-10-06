@@ -3,6 +3,7 @@ package com.kramar.data.service.impl;
 import com.kramar.data.converter.AdvertConverter;
 import com.kramar.data.dbo.AdvertDbo;
 import com.kramar.data.dbo.UserDbo;
+import com.kramar.data.profiling.Profiling;
 import com.kramar.data.repository.AdvertRepository;
 import com.kramar.data.service.AdvertService;
 import com.kramar.data.service.AuthenticationService;
@@ -18,6 +19,7 @@ import java.util.UUID;
 import java.util.stream.Collectors;
 
 @Service
+@Profiling
 public class AdvertServiceImpl implements AdvertService {
 
     @Autowired

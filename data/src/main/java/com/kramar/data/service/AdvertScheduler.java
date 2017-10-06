@@ -1,6 +1,7 @@
 package com.kramar.data.service;
 
 import com.kramar.data.dbo.AdvertDbo;
+import com.kramar.data.profiling.Profiling;
 import com.kramar.data.repository.AdvertRepository;
 import com.kramar.data.type.AdvertStatus;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +18,8 @@ public class AdvertScheduler {
     @Autowired
     private AdvertRepository advertRepository;
 
-    @Scheduled(cron = "0 0 12 * * ?")
+        @Scheduled(cron = "0 0 12 * * ?")
+//    @Scheduled(cron = "1 * * * * *")
     public void setOldAdvertsInActive() {
         final List<AdvertDbo> advertDbos = advertRepository.findByAdvertStatus(AdvertStatus.ACTIVE);
         advertDbos.forEach(a -> {
@@ -27,7 +29,8 @@ public class AdvertScheduler {
         });
     }
 
-    @Scheduled(cron = "0 0 12 * * ?")
+        @Scheduled(cron = "0 0 12 * * ?")
+//    @Scheduled(cron = "1 * * * * *")
     public void deleteInActiveAdverts() {
         final List<AdvertDbo> advertDbos = advertRepository.findByAdvertStatus(AdvertStatus.INACTIVE);
         final List<AdvertDbo> collect =

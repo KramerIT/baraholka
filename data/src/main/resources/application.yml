@@ -8,6 +8,7 @@ server:
 spring:
   application:
     name: SAT Support Web Application
+    profiling: false
   messages:
     basename: messages/messages
     encoding: UTF-8
