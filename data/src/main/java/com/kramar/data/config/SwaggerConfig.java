@@ -2,17 +2,16 @@ package com.kramar.data.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.core.annotation.Order;
 import springfox.documentation.builders.PathSelectors;
 import springfox.documentation.builders.RequestHandlerSelectors;
-import springfox.documentation.service.*;
+import springfox.documentation.service.ApiInfo;
+import springfox.documentation.service.Contact;
+import springfox.documentation.service.StringVendorExtension;
 import springfox.documentation.spi.DocumentationType;
-import springfox.documentation.spi.service.contexts.SecurityContext;
 import springfox.documentation.spring.web.plugins.Docket;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 import java.util.Collections;
-import java.util.List;
 
 @EnableSwagger2
 @Configuration
@@ -39,6 +38,7 @@ public class SwaggerConfig {
                 "Terms of service",
                 new Contact("Yri Kramar", "KramerIT.com", "y.kramar@gpsolutions.com"),
                 "License of Baraholka API",
-                "Baraholka API license URL");
+                "Baraholka API license URL",
+                Collections.singleton(new StringVendorExtension("kramar", "1.0")));
     }
 }
