@@ -23,11 +23,20 @@ public class UserServiceImpl implements UserService {
     @Autowired
     private UserConverter userConverter;
 
+    /**
+     * Get all users with pagination
+     * @param pageable class with pagination information
+     * @return advert with pagination
+     */
     @Override
     public Page<UserDto> getAllUsers(final Pageable pageable) {
         return userRepository.findAll(pageable).map(userConverter::transform);
     }
 
+    /** Create new user
+     * @param userDto new user
+     * @return saved user
+     */
     @Override
     public UserDto createUser(final UserDto userDto) {
         userDto.setId(null);
@@ -36,18 +45,30 @@ public class UserServiceImpl implements UserService {
         return userConverter.transform(userDbo);
     }
 
+    /** Get user by id
+     * @param id user id
+     * @return user
+     */
     @Override
     public UserDto getUserById(final UUID id) {
         final UserDbo userDbo = userRepository.getById(id);
         return userConverter.transform(userDbo);
     }
 
+    /** Delete user by id
+     * @param id user id
+     */
     @Override
     public void deleteUserById(final UUID id) {
         final UserDbo userDbo = userRepository.getById(id);
         userRepository.delete(userDbo);
     }
 
+    /** Modify user by id
+     * @param id user id
+     * @param userDto user
+     * @return modified user
+     */
     @Override
     public UserDto modifyUserById(final UUID id, final UserDto userDto) {
         final UserDbo oldUser = userRepository.getById(id);
@@ -57,6 +78,10 @@ public class UserServiceImpl implements UserService {
         return userConverter.transform(userDbo);
     }
 
+    /** Change user password
+     * @param id user id
+     * @param passwordDto Old and new password
+     */
     @Override
     public void changePassword(final UUID id, final ChangePasswordDto passwordDto) {
         final UserDbo userDbo = userRepository.getById(id);

@@ -22,6 +22,11 @@ public class AdvertController {
     @Autowired
     private AdvertService advertService;
 
+    /**
+     * Get all adverts with pagination
+     * @param pageable class with pagination information
+     * @return advert with pagination
+     */
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
     @ApiOperation(
@@ -34,6 +39,11 @@ public class AdvertController {
         return advertService.getAllAdverts(pageable);
     }
 
+    /**
+     * Get advert by id
+     * @param id advert id
+     * @return advert
+     */
     @GetMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
     @ApiOperation(
@@ -49,6 +59,10 @@ public class AdvertController {
         return advertService.getAdvertById(id);
     }
 
+    /** Create new advert
+     * @param advertDto new advert
+     * @return saved advert
+     */
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     @ApiOperation(
@@ -63,6 +77,12 @@ public class AdvertController {
         return advertService.createAdvert(advertDto);
     }
 
+    /**
+     * Modify advert
+     * @param id advert id
+     * @param advertDto advert to modify
+     * @return modified advert
+     */
     @PutMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
     @ApiOperation(
@@ -77,6 +97,9 @@ public class AdvertController {
         return advertService.modifyAdvertById(id, advertDto);
     }
 
+    /** Delete advert by id
+     * @param id advert id
+     */
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @ApiOperation(
