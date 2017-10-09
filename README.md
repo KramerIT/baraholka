@@ -33,6 +33,10 @@ To start app:
 
  9. all rest method you can find on swagger:
     http://localhost:8080/swagger-ui.html
+    
+
+REST have pagination (from Spring Data Framework), for example:
+http://localhost:8080/adverts?size=10&number=0 
 
 
 App have profiling for data module. 

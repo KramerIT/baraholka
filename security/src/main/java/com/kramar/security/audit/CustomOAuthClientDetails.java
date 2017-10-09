@@ -47,12 +47,14 @@ public class CustomOAuthClientDetails implements ClientDetails {
 
     @Override
     public Set<String> getScope() {
-        return Collections.singleton("openid");
+//        return Collections.singleton("openid");
+        return new HashSet<>(Arrays.asList("openid", "read", "write"));
     }
 
     @Override
     public Set<String> getAuthorizedGrantTypes() {
-        return new HashSet<>(Arrays.asList("password", "refresh_token"));
+//        return new HashSet<>(Arrays.asList("password", "refresh_token"));
+        return new HashSet<>(Arrays.asList("password", "implicit", "refresh_token"));
     }
 
     @Override

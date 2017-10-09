@@ -3,6 +3,7 @@ DO $$DECLARE
 BEGIN
 
   INSERT INTO oauth_clients (client_id, client_secret, client_resources) VALUES
+    ('swagger-ui', 'web', 'authresource,webresource'),
     ('web', 'web', 'authresource,webresource'),
     ('mobile', 'mobile', 'authresource,mobileresource');
 
