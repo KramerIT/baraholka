@@ -4,11 +4,6 @@ import com.kramar.data.dbo.AdvertDbo;
 import com.kramar.data.dbo.UserDbo;
 import com.kramar.data.repository.AdvertRepository;
 import com.kramar.data.repository.UserRepository;
-import com.kramar.data.test.utils.TestUtils;
-import com.kramar.data.type.AdvertStatus;
-import com.kramar.data.type.AdvertType;
-import com.kramar.data.type.CurrencyType;
-import com.kramar.data.type.UserStatus;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -19,13 +14,9 @@ import org.springframework.data.domain.Page;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import java.util.Optional;
-import java.util.UUID;
 
-import static com.kramar.data.test.utils.TestUtils.INVALID_ID;
-import static com.kramar.data.test.utils.TestUtils.createAdvert;
-import static com.kramar.data.test.utils.TestUtils.createUser;
-import static junit.framework.Assert.assertFalse;
-import static junit.framework.Assert.assertTrue;
+import static com.kramar.data.test.utils.TestUtils.*;
+import static junit.framework.Assert.*;
 
 @SpringBootTest
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -71,6 +62,13 @@ public class AdvertRepositoryTest {
 
         byId = advertRepository.findById(INVALID_ID);
         assertFalse(byId.isPresent());
+    }
+
+    @Test
+    public void getByIdTest() {
+        AdvertDbo byId = advertRepository.getById(advertDbo.getId());
+        assertNotNull(byId);
+        assertTrue(byId.getHeadLine().equals(advertDbo.getHeadLine()));
     }
 
     @Test

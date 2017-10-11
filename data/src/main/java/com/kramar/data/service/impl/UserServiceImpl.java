@@ -6,8 +6,10 @@ import com.kramar.data.dto.ChangePasswordDto;
 import com.kramar.data.dto.UserDto;
 import com.kramar.data.exception.ConflictException;
 import com.kramar.data.exception.ErrorReason;
+import com.kramar.data.service.AuthenticationService;
 import com.kramar.data.service.UserService;
 import com.kramar.data.repository.UserRepository;
+import com.kramar.data.type.UserRole;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -22,6 +24,8 @@ public class UserServiceImpl implements UserService {
     private UserRepository userRepository;
     @Autowired
     private UserConverter userConverter;
+    @Autowired
+    private AuthenticationService authenticationService;
 
     /**
      * Get all users with pagination
@@ -73,9 +77,19 @@ public class UserServiceImpl implements UserService {
     public UserDto modifyUserById(final UUID id, final UserDto userDto) {
         final UserDbo oldUser = userRepository.getById(id);
         userDto.setId(oldUser.getId());
+        // only super admin can change user roles
+        if (!getCurrentUser().getUserRoles().contains(UserRole.SUPER_ADMIN)) {
+//            userDto.setUserRoles(oldUser.getUserRoles());
+            throw new ConflictException(ErrorReason.INVALID_PERMISSION, "modifyUser");
+        }
         UserDbo userDbo = userConverter.transform(userDto);
         userDbo = userRepository.save(userDbo);
         return userConverter.transform(userDbo);
+    }
+
+    private UserDto getCurrentUser() {
+        UUID userId = authenticationService.getCurrentUserId();
+        return getUserById(userId);
     }
 
     /** Change user password

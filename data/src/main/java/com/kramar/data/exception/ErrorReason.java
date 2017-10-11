@@ -9,6 +9,7 @@ public enum ErrorReason {
     UNABLE_TO_CONVERT_IMAGE("Unable to convert image"),
     INVALID_UPLOAD_FILE_TYPE("Incorrect upload file type"),
     INVALID_PASSWORD("Invalid current password, please try again"),
+    INVALID_PERMISSION("Invalid permission"),
     INVALID_EMAIL("Email you have chosen already exists, please try another one");
 
     private String description;
