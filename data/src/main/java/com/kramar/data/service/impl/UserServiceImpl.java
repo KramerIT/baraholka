@@ -78,9 +78,10 @@ public class UserServiceImpl implements UserService {
         final UserDbo oldUser = userRepository.getById(id);
         userDto.setId(oldUser.getId());
         // only super admin can change user roles
-        if (!getCurrentUser().getUserRoles().contains(UserRole.SUPER_ADMIN)) {
+        if (userDto.getUserRoles().contains(UserRole.SUPER_ADMIN)
+                && !getCurrentUser().getUserRoles().contains(UserRole.SUPER_ADMIN)) {
 //            userDto.setUserRoles(oldUser.getUserRoles());
-            throw new ConflictException(ErrorReason.INVALID_PERMISSION, "modifyUser");
+                throw new ConflictException(ErrorReason.INVALID_PERMISSION, "modifyUser");
         }
         UserDbo userDbo = userConverter.transform(userDto);
         userDbo = userRepository.save(userDbo);

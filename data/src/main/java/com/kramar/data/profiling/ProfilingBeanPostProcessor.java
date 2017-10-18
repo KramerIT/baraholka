@@ -13,7 +13,7 @@ import java.util.concurrent.TimeUnit;
 @Component
 public class ProfilingBeanPostProcessor implements BeanPostProcessor {
 
-    @Value("${spring.application.profiling:false}")
+    @Value("${profiling.enabled:false}")
     private boolean enableProfiling;
     private Map<String, Class> map = new HashMap<>();
 

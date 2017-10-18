@@ -7,6 +7,7 @@ import com.kramar.data.dto.UserDto;
 import com.kramar.data.exception.ConflictException;
 import com.kramar.data.repository.UserRepository;
 import com.kramar.data.service.UserService;
+import com.kramar.data.type.UserRole;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -17,6 +18,7 @@ import org.springframework.data.domain.*;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
@@ -87,6 +89,7 @@ public class UserServiceTest {
     @Test
     public void modifyUserByIdTest() throws Exception {
         userDto.setUserName("User");
+        userDto.setUserRoles(Collections.singletonList(UserRole.SUPER_ADMIN));
         UserDto modifyUserById = userService.modifyUserById(userDto.getId(), userDto);
         assertNotNull(modifyUserById);
         assertTrue(modifyUserById.getUserName().equals(userDto.getUserName()));

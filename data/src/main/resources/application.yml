@@ -8,7 +8,6 @@ server:
 spring:
   application:
     name: SAT Support Web Application
-    profiling: false
   messages:
     basename: messages/messages
     encoding: UTF-8
@@ -26,10 +25,10 @@ spring:
     show-sql: true
 
   datasource:
-    driver-class-name: org.postgresql.Driver
-    url: jdbc:postgresql://localhost:5432/test_database
-    username: test_user
-    password: qwerty
+    driver-class-name: @datasource.driver@
+    url: @datasource.url@
+    username: @datasource.user@
+    password: @datasource.password@
     hikari:
       maximum-pool-size: 15
 logging:
@@ -43,4 +42,8 @@ security:
       filter-order: 3
   basic:
     enabled: false
+
+profiling:
+  enabled: @profiling.enabled@
+
 

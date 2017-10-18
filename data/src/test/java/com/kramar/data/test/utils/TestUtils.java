@@ -7,6 +7,7 @@ import com.kramar.data.type.*;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.math.BigDecimal;
+import java.util.Collections;
 import java.util.UUID;
 
 public class TestUtils {
@@ -45,6 +46,7 @@ public class TestUtils {
         userDbo.setUserSurname(ANY_WORD);
         userDbo.setPassword(ANY_WORD);
         userDbo.setStatus(UserStatus.ACTIVE);
+        userDbo.setUserRoles(Collections.singletonList(UserRole.ADMIN));
         return userDbo;
     }
 
