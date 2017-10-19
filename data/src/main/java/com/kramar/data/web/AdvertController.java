@@ -2,6 +2,7 @@ package com.kramar.data.web;
 
 import com.kramar.data.dto.AdvertDto;
 import com.kramar.data.service.AdvertService;
+import com.kramar.data.type.BooleanOperator;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
@@ -11,6 +12,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+
 import java.util.UUID;
 
 @RestController
@@ -24,14 +26,15 @@ public class AdvertController {
 
     /**
      * Get all adverts with pagination
+     *
      * @param pageable class with pagination information
      * @return advert with pagination
      */
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
     @ApiOperation(
-            value = "List all advert",
-            notes = "List all advert using paging",
+            value = "List all adverts",
+            notes = "List all adverts using paging",
             response = AdvertDto.class,
             responseContainer = "List"
     )
@@ -41,6 +44,7 @@ public class AdvertController {
 
     /**
      * Get advert by id
+     *
      * @param id advert id
      * @return advert
      */
@@ -59,7 +63,9 @@ public class AdvertController {
         return advertService.getAdvertById(id);
     }
 
-    /** Create new advert
+    /**
+     * Create new advert
+     *
      * @param advertDto new advert
      * @return saved advert
      */
@@ -79,7 +85,8 @@ public class AdvertController {
 
     /**
      * Modify advert
-     * @param id advert id
+     *
+     * @param id        advert id
      * @param advertDto advert to modify
      * @return modified advert
      */
@@ -97,7 +104,9 @@ public class AdvertController {
         return advertService.modifyAdvertById(id, advertDto);
     }
 
-    /** Delete advert by id
+    /**
+     * Delete advert by id
+     *
      * @param id advert id
      */
     @DeleteMapping("/{id}")
@@ -112,6 +121,30 @@ public class AdvertController {
     })
     public void deleteAdvert(@PathVariable("id") final UUID id) {
         advertService.deleteAdvertById(id);
+    }
+
+    /**
+     * Full Text Search
+     *
+     * @param searchText      any searchText to search (for example "blue car")
+     * @param booleanOperator the Boolean operator AND/OR to search all words or any existing word
+     * @param pageable        class with pagination information
+     * @return Page adverts
+     */
+    @GetMapping("/search")
+    @ResponseStatus(HttpStatus.OK)
+    @ApiOperation(
+            value = "Search adverts",
+            notes = "Search adverts by text in title and description of advert using paging. " +
+                    "Any text to search (for example \"blue car\"). " +
+                    "Boolean operator AND/OR to search all words or any existing word",
+            response = AdvertDto.class,
+            responseContainer = "List"
+    )
+    public Page<AdvertDto> getAdvertsByTextInTitleOrInDescription(@RequestParam("text") final String searchText,
+                                                                  @RequestParam("operator") final BooleanOperator booleanOperator,
+                                                                  final Pageable pageable) {
+        return advertService.getAdvertsByTextInTitleOrInDescription(searchText, booleanOperator, pageable);
     }
 
 }

@@ -44,4 +44,9 @@ You can enable it in application.yml file in property "profiling".
 To profiling class you need add annotation "@Profiling" to class like it done on AdvertServiceImpl.class
 
 
+App have full text search with pagination (more details in javadoc)
+To try call:
+http://localhost:8080/adverts/search?text=blue car&operator=AND&size=10&page=0
+
+
 

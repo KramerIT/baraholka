@@ -9,6 +9,7 @@ import com.kramar.data.service.AdvertService;
 import com.kramar.data.service.AuthenticationService;
 import com.kramar.data.dto.AdvertDto;
 import com.kramar.data.type.AdvertStatus;
+import com.kramar.data.type.BooleanOperator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -108,5 +109,23 @@ public class AdvertServiceImpl implements AdvertService {
         AdvertDbo advertDbo = advertConverter.transform(advertDto);
         advertDbo = advertRepository.save(advertDbo);
         return advertConverter.transform(advertDbo);
+    }
+
+    /** Full Text Search
+     * @param searchText any searchText to search (for example "blue car")
+     * @param booleanOperator the Boolean operator AND/OR to search all words or any existing word
+     * @param pageable class with pagination information
+     * @return Page adverts
+     */
+    @Override
+    public Page<AdvertDto> getAdvertsByTextInTitleOrInDescription(final String searchText, final BooleanOperator booleanOperator, final Pageable pageable) {
+        final String splittedText =
+                booleanOperator.equals(BooleanOperator.AND)
+                ? searchText.replace(" ", "&")
+                : searchText.replace(" ", "|");
+
+        return advertRepository
+                .findByTextInTitleOrInDescriptionNativeQuery(splittedText, pageable)
+                .map(advertConverter::transform);
     }
 }

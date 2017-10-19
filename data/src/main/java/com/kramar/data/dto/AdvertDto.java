@@ -24,7 +24,7 @@ import static com.fasterxml.jackson.annotation.JsonInclude.Include.NON_NULL;
 @Data
 @EqualsAndHashCode(callSuper = true)
 @JsonInclude(NON_NULL)
-@ApiModel(value="Advert")
+@ApiModel(value = "Advert")
 public class AdvertDto extends AbstractDto {
 
     @NotNull
@@ -55,7 +55,7 @@ public class AdvertDto extends AbstractDto {
     @ApiModelProperty(value = "Advert main image (UUID)")
     private UUID headLineImage;
 
-    @ApiModelProperty(value = "Advert images (UUIDs)")
-    private Map<ImageType, UUID> images;
+    @ApiModelProperty(value = "Advert images")
+    private List<ImageDto> images;
 
 }

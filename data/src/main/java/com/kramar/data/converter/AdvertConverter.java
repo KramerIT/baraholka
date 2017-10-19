@@ -2,6 +2,7 @@ package com.kramar.data.converter;
 
 import com.kramar.data.dbo.AdvertDbo;
 import com.kramar.data.dbo.ImageDbo;
+import com.kramar.data.dto.ImageDto;
 import com.kramar.data.service.AuthenticationService;
 import com.kramar.data.dto.AdvertDto;
 import com.kramar.data.service.ImageService;
@@ -39,7 +40,7 @@ public class AdvertConverter extends AbstractDtoConverter<AdvertDbo, AdvertDto> 
         dto.setCurrencyType(entity.getCurrencyType());
         dto.setDescription(entity.getDescription());
         dto.setImages(!CollectionUtils.isEmpty(entity.getImages()) ?
-                entity.getImages().stream().collect(Collectors.toMap(ImageDbo::getImageType, ImageDbo::getId))
+                entity.getImages().stream().map(i -> new ImageDto(i.getImageType(), i.getId())).collect(Collectors.toList())
                 : null);
     }
 
@@ -51,7 +52,7 @@ public class AdvertConverter extends AbstractDtoConverter<AdvertDbo, AdvertDto> 
         entity.setPrice(dto.getPrice());
         entity.setCurrencyType(dto.getCurrencyType());
         entity.setDescription(dto.getDescription());
-        entity.setImages(imageService.getImageByIds(dto.getImages().values()));
+        entity.setImages(imageService.getImageByIds(dto.getImages().stream().map(ImageDto::getId).collect(Collectors.toList())));
         entity.setOwner(authenticationService.getCurrentUser());
     }
 }
