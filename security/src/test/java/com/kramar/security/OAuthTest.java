@@ -1,11 +1,16 @@
 package com.kramar.security;
 
+import com.kramar.data.dbo.OAuthClient;
+import com.kramar.data.dbo.UserDbo;
+import com.kramar.data.repository.OauthClientRepository;
+import com.kramar.data.repository.UserRepository;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.json.JacksonJsonParser;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.HttpHeaders;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
@@ -18,6 +23,10 @@ import org.springframework.web.context.WebApplicationContext;
 
 import javax.servlet.Filter;
 
+import static com.kramar.security.utils.TestUtils.createOAuthClient;
+import static com.kramar.security.utils.TestUtils.createUser;
+import static org.mockito.Matchers.any;
+import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
@@ -32,6 +41,10 @@ public class OAuthTest {
     private WebApplicationContext wac;
     @Autowired
     private Filter springSecurityFilterChain;
+    @MockBean
+    private OauthClientRepository oauthClientRepository;
+    @MockBean
+    private UserRepository userRepository;
 
     private MockMvc mockMvc;
 
@@ -41,6 +54,10 @@ public class OAuthTest {
 
     @Before
     public void setup() {
+        final OAuthClient oAuthClient = createOAuthClient();
+        final UserDbo userDbo = createUser();
+        when(userRepository.getUserByEmail(any(String.class))).thenReturn(userDbo);
+        when(oauthClientRepository.getByClientId(any(String.class))).thenReturn(oAuthClient);
         this.mockMvc = MockMvcBuilders.webAppContextSetup(this.wac).addFilter(springSecurityFilterChain).build();
     }
 
@@ -73,7 +90,7 @@ public class OAuthTest {
     }
 
     @Test
-    public void givenInvalidRole_whenGetSecureRequest_thenForbidden() throws Exception {
+    public void givenInvalidEndPoint_whenGetSecureRequest_thenForbidden() throws Exception {
         final String accessToken = obtainAccessToken(EMAIL, PASSWORD);
         mockMvc.perform(get("/blabla").header("Authorization", "Bearer " + accessToken)).andExpect(status().isNotFound());
     }
